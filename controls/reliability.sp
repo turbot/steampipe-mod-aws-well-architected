@@ -23,8 +23,8 @@ benchmark "reliability_pillar" {
 }
 
 benchmark "reliability_pillar_1" {
-  title       = "REL-1"
-  description = "How do you manage service quotas and constraints? For cloud-based workload architectures, there are service quotas (which are also referred to as service limits). These quotas exist to prevent accidentally provisioning more resources than you need and to limit request rates on API operations so as to protect services from abuse. There are also resource constraints, for example, the rate that you can push bits down a fiber-optic cable, or the amount of storage on a physical disk."
+  title       = "REL 1: How do you manage service quotas and constraints?"
+  description = "For cloud-based workload architectures, there are service quotas (which are also referred to as service limits). These quotas exist to prevent accidentally provisioning more resources than you need and to limit request rates on API operations so as to protect services from abuse. There are also resource constraints, for example, the rate that you can push bits down a fiber-optic cable, or the amount of storage on a physical disk."
   children = [
     # DYNAMODB_THROUGHPUT_LIMIT_CHECK
     control.lambda_function_concurrent_execution_limit_configured,
@@ -38,8 +38,8 @@ benchmark "reliability_pillar_1" {
 }
 
 benchmark "reliability_pillar_2" {
-  title       = "REL-2"
-  description = "How do you plan your network topology? Workloads often exist in multiple environments. These include multiple cloud environments (both publicly accessible and private) and possibly your existing data center infrastructure. Plans must include network considerations such as intra- and inter-system connectivity, public IP address management, private IP address management, and domain name resolution."
+  title       = "REL 2: How do you plan your network topology?"
+  description = "Workloads often exist in multiple environments. These include multiple cloud environments (both publicly accessible and private) and possibly your existing data center infrastructure. Plans must include network considerations such as intra- and inter-system connectivity, public IP address management, private IP address management, and domain name resolution."
   children = [
     control.vpc_vpn_tunnel_up,
     control.es_domain_in_vpc,
@@ -60,8 +60,8 @@ benchmark "reliability_pillar_2" {
 }
 
 benchmark "reliability_pillar_6" {
-  title       = "REL-6"
-  description = "How do you monitor workload resources? Logs and metrics are powerful tools to gain insight into the health of your workload. You can configure your workload to monitor logs and metrics and send notifications when thresholds are crossed or significant events occur. Monitoring enables your workload to recognize when low-performance thresholds are crossed or failures occur, so it can recover automatically in response."
+  title       = "REL 6: How do you monitor workload resources?"
+  description = "Logs and metrics are powerful tools to gain insight into the health of your workload. You can configure your workload to monitor logs and metrics and send notifications when thresholds are crossed or significant events occur. Monitoring enables your workload to recognize when low-performance thresholds are crossed or failures occur, so it can recover automatically in response."
   children = [
     control.autoscaling_group_with_lb_use_health_check,
     control.elastic_beanstalk_enhanced_health_reporting_enabled,
@@ -93,8 +93,8 @@ benchmark "reliability_pillar_6" {
 }
 
 benchmark "reliability_pillar_7" {
-  title       = "REL-7"
-  description = "How do you design your workload to adapt to changes in demand? A scalable workload provides elasticity to add or remove resources automatically so that they closely match the current demand at any given point in time."
+  title       = "REL 7: How do you design your workload to adapt to changes in demand?"
+  description = "A scalable workload provides elasticity to add or remove resources automatically so that they closely match the current demand at any given point in time."
   children = [
     control.dynamodb_table_auto_scaling_enabled,
     control.autoscaling_launch_config_public_ip_disabled,
@@ -107,8 +107,8 @@ benchmark "reliability_pillar_7" {
 }
 
 benchmark "reliability_pillar_8" {
-  title       = "REL-8"
-  description = "How do you implement change? Controlled changes are necessary to deploy new functionality, and to ensure that the workloads and the operating environment are running known software and can be patched or replaced in a predictable manner. If these changes are uncontrolled, then it makes it difficult to predict the effect of these changes, or to address issues that arise because of them."
+  title       = "REL 8: How do you implement change?"
+  description = "Controlled changes are necessary to deploy new functionality, and to ensure that the workloads and the operating environment are running known software and can be patched or replaced in a predictable manner. If these changes are uncontrolled, then it makes it difficult to predict the effect of these changes, or to address issues that arise because of them."
   children = [
     control.redshift_cluster_maintenance_settings_check,
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
@@ -121,8 +121,8 @@ benchmark "reliability_pillar_8" {
 }
 
 benchmark "reliability_pillar_9" {
-  title       = "REL-9"
-  description = "How do you back up data? Back up data, applications, and configuration to meet your requirements for recovery time objectives (RTO) and recovery point objectives (RPO)."
+  title       = "REL 9: How do you back up data?"
+  description = "Back up data, applications, and configuration to meet your requirements for recovery time objectives (RTO) and recovery point objectives (RPO)."
   children = [
     control.rds_db_instance_backup_enabled,
     control.dynamodb_table_in_backup_plan,
@@ -161,8 +161,8 @@ benchmark "reliability_pillar_9" {
 }
 
 benchmark "reliability_pillar_10" {
-  title       = "REL-10"
-  description = "How do you use fault isolation to protect your workload? Fault isolated boundaries limit the effect of a failure within a workload to a limited number of components. Components outside of the boundary are unaffected by the failure. Using multiple fault isolated boundaries, you can limit the impact on your workload."
+  title       = "REL 10: How do you use fault isolation to protect your workload?"
+  description = "Fault isolated boundaries limit the effect of a failure within a workload to a limited number of components. Components outside of the boundary are unaffected by the failure. Using multiple fault isolated boundaries, you can limit the impact on your workload."
   children = [
     control.elb_classic_lb_cross_zone_load_balancing_enabled,
     control.rds_db_instance_multiple_az_enabled,

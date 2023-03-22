@@ -25,8 +25,8 @@ benchmark "security_pillar" {
 }
 
 benchmark "security_pillar_1" {
-  title       = "SEC-1"
-  description = "How do you securely operate your workload? To operate your workload securely, you must apply overarching best practices to every area of security. Take requirements and processes that you have defined in operational excellence at an organizational and workload level, and apply them to all areas. Staying up to date with AWS and industry recommendations and threat intelligence helps you evolve your threat model and control objectives. Automating security processes, testing, and validation allow you to scale your security operations."
+  title       = "SEC 1: How do you securely operate your workload?"
+  description = "To operate your workload securely, you must apply overarching best practices to every area of security. Take requirements and processes that you have defined in operational excellence at an organizational and workload level, and apply them to all areas. Staying up to date with AWS and industry recommendations and threat intelligence helps you evolve your threat model and control objectives. Automating security processes, testing, and validation allow you to scale your security operations."
   children = [
     control.account_part_of_organizations,
     control.iam_root_user_no_access_keys,
@@ -46,8 +46,8 @@ benchmark "security_pillar_1" {
 }
 
 benchmark "security_pillar_2" {
-  title       = "SEC-2"
-  description = "How do you manage identities for people and machines? There are two types of identities you need to manage when approaching operating secure AWS workloads. Understanding the type of identity you need to manage and grant access helps you ensure the right identities have access to the right resources under the right conditions. Human Identities: Your administrators, developers, operators, and end users require an identity to access your AWS environments and applications. These are members of your organization, or external users with whom you collaborate, and who interact with your AWS resources via a web browser, client application, or interactive command-line tools. Machine Identities: Your service applications, operational tools, and workloads require an identity to make requests to AWS services - for example, to read data. These identities include machines running in your AWS environment such as Amazon EC2 instances or AWS Lambda functions. You may also manage machine identities for external parties who need access. Additionally, you may also have machines outside of AWS that need access to your AWS environment."
+  title       = "SEC 2: How do you manage identities for people and machines?"
+  description = "There are two types of identities you need to manage when approaching operating secure AWS workloads. Understanding the type of identity you need to manage and grant access helps you ensure the right identities have access to the right resources under the right conditions. Human Identities: Your administrators, developers, operators, and end users require an identity to access your AWS environments and applications. These are members of your organization, or external users with whom you collaborate, and who interact with your AWS resources via a web browser, client application, or interactive command-line tools. Machine Identities: Your service applications, operational tools, and workloads require an identity to make requests to AWS services - for example, to read data. These identities include machines running in your AWS environment such as Amazon EC2 instances or AWS Lambda functions. You may also manage machine identities for external parties who need access. Additionally, you may also have machines outside of AWS that need access to your AWS environment."
   children = [
     control.iam_user_access_key_age_90,
     control.iam_account_password_policy_strong,
@@ -77,8 +77,8 @@ benchmark "security_pillar_2" {
 }
 
 benchmark "security_pillar_3" {
-  title       = "SEC-3"
-  description = "How do you manage permissions for people and machines? Each component or resource of your workload needs to be accessed by administrators, end users, or other components. Have a clear definition of who or what should have access to each component, choose the appropriate identity type and method of authentication and authorization."
+  title       = "SEC 3: How do you manage permissions for people and machines?"
+  description = "Each component or resource of your workload needs to be accessed by administrators, end users, or other components. Have a clear definition of who or what should have access to each component, choose the appropriate identity type and method of authentication and authorization."
   children = [
     control.autoscaling_launch_config_public_ip_disabled,
     control.vpc_subnet_auto_assign_public_ip_disabled,
@@ -126,8 +126,8 @@ benchmark "security_pillar_3" {
 }
 
 benchmark "security_pillar_4" {
-  title       = "SEC-4"
-  description = "How do you detect and investigate security events? Capture and analyze events from logs and metrics to gain visibility. Take action on security events and potential threats to help secure your workload."
+  title       = "SEC 4: How do you detect and investigate security events?"
+  description = "Capture and analyze events from logs and metrics to gain visibility. Take action on security events and potential threats to help secure your workload."
   children = [
     control.apigateway_stage_logging_enabled,
     control.cloudtrail_trail_integrated_with_logs,
@@ -158,8 +158,8 @@ benchmark "security_pillar_4" {
 }
 
 benchmark "security_pillar_5" {
-  title       = "SEC-5"
-  description = "How do you protect your network resources? Any workload that has some form of network connectivity, whether it’s the internet or a private network, requires multiple layers of defense to help protect from external and internal network-based threats."
+  title       = "SEC 5: How do you protect your network resources?"
+  description = "Any workload that has some form of network connectivity, whether it’s the internet or a private network, requires multiple layers of defense to help protect from external and internal network-based threats."
   children = [
     control.vpc_flow_logs_enabled,
     control.guardduty_enabled,
@@ -213,8 +213,8 @@ benchmark "security_pillar_5" {
 }
 
 benchmark "security_pillar_6" {
-  title       = "SEC-6"
-  description = "How do you protect your compute resources? Compute resources in your workload require multiple layers of defense to help protect from external and internal threats. Compute resources include EC2 instances, containers, AWS Lambda functions, database services, IoT devices, and more."
+  title       = "SEC 6: How do you protect your compute resources?"
+  description = "Compute resources in your workload require multiple layers of defense to help protect from external and internal threats. Compute resources include EC2 instances, containers, AWS Lambda functions, database services, IoT devices, and more."
   children = [
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
     control.cloudtrail_trail_validation_enabled,
@@ -252,8 +252,8 @@ benchmark "security_pillar_6" {
 }
 
 benchmark "security_pillar_7" {
-  title       = "SEC-7"
-  description = "How do you classify your data? Classification provides a way to categorize data, based on criticality and sensitivity in order to help you determine appropriate protection and retention controls."
+  title       = "SEC 7: How do you classify your data?"
+  description = "Classification provides a way to categorize data, based on criticality and sensitivity in order to help you determine appropriate protection and retention controls."
   children = [
     control.cloudwatch_log_group_retention_period_365,
     control.guardduty_finding_archived,
@@ -267,8 +267,8 @@ benchmark "security_pillar_7" {
 }
 
 benchmark "security_pillar_8" {
-  title       = "SEC-8"
-  description = "How do you protect your data at rest? Protect your data at rest by implementing multiple controls, to reduce the risk of unauthorized access or mishandling."
+  title       = "SEC 8: How do you protect your data at rest?"
+  description = "Protect your data at rest by implementing multiple controls, to reduce the risk of unauthorized access or mishandling."
   children = [
     control.kms_key_not_pending_deletion,
     control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
@@ -307,8 +307,8 @@ benchmark "security_pillar_8" {
 }
 
 benchmark "security_pillar_9" {
-  title       = "SEC-9"
-  description = "How do you protect your data in transit? Protect your data in transit by implementing multiple controls to reduce the risk of unauthorized access or loss."
+  title       = "SEC 9: How do you protect your data in transit?"
+  description = "Protect your data in transit by implementing multiple controls to reduce the risk of unauthorized access or loss."
   children = [
     control.acm_certificate_expires_30_days,
     control.elb_application_network_lb_use_ssl_certificate,
