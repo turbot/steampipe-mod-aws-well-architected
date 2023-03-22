@@ -6,7 +6,7 @@ locals {
 
 benchmark "security_pillar" {
   title       = "Security Pillar"
-  description = "TO-DO"
+  description = "The security pillar focuses on protecting information and systems. Key topics include confidentiality and integrity of data, managing user permissions, and establishing controls to detect security events."
   children = [
     benchmark.security_pillar_1,
     benchmark.security_pillar_2,
@@ -145,8 +145,8 @@ benchmark "security_pillar_4" {
     control.guardduty_enabled,
     control.securityhub_enabled,
     control.cloudwatch_alarm_action_enabled,
-    # OPENSEARCH_AUDIT_LOGGING_ENABLED
-    # OPENSEARCH_LOGS_TO_CLOUDWATCH
+    control.opensearch_domain_audit_logging_enabled,
+    control.opensearch_domain_logs_to_cloudwatch
     # control.cloudwatch_alarm_action_enabled, // cannot have same control twice
     # CLOUDWATCH_ALARM_RESOURCE_CHECK
     # CLOUDWATCH_ALARM_SETTINGS_CHECK
@@ -173,7 +173,7 @@ benchmark "security_pillar_5" {
     control.s3_bucket_restrict_public_write_access,
     control.s3_bucket_restrict_public_read_access,
     control.s3_public_access_block_bucket,
-    control.s3_public_access_block_account, //not sure as it is not s3_public_access_block_account_periodic
+    control.s3_public_access_block_account,
     control.vpc_security_group_restrict_ingress_ssh_all,
     control.redshift_cluster_prohibit_public_access,
     control.rds_db_snapshot_prohibit_public_access,
@@ -185,24 +185,24 @@ benchmark "security_pillar_5" {
     control.emr_cluster_master_nodes_no_public_ip,
     control.es_domain_in_vpc,
     control.ec2_instance_not_publicly_accessible,
-    # EC2_INSTANCE_MULTIPLE_ENI_CHECK
+    control.ec2_instance_not_use_multiple_enis,
     control.ebs_snapshot_not_publicly_restorable,
     control.dms_replication_instance_not_publicly_accessible,
     control.apigateway_stage_use_waf_web_acl,
     control.elb_application_lb_waf_enabled,
     control.redshift_cluster_enhanced_vpc_routing_enabled,
     control.opensearch_domain_in_vpc,
-    # WAF_REGIONAL_RULE_NOT_EMPTY
+    control.waf_regional_rule_condition_attached
     # WAF_REGIONAL_RULEGROUP_NOT_EMPTY
     # WAF_REGIONAL_WEBACL_NOT_EMPTY
     control.vpc_network_acl_unused,
     # FMS_SHIELD_RESOURCE_POLICY_CHECK
     # FMS_WEBACL_RULEGROUP_ASSOCIATION_CHECK
     # FMS_WEBACL_RESOURCE_POLICY_CHECK
-    # NETFW_POLICY_DEFAULT_ACTION_FRAGMENT_PACKETS
-    # NETFW_POLICY_DEFAULT_ACTION_FULL_PACKETS
-    # NETFW_POLICY_RULE_GROUP_ASSOCIATED
-    # NETFW_STATELESS_RULE_GROUP_NOT_EMPTY
+    control.networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets,
+    control.networkfirewall_firewall_policy_default_stateless_action_check_full_packets,
+    control.networkfirewall_firewall_policy_rule_group_not_empty,
+    control.networkfirewall_stateless_rule_group_not_empty,
     control.vpc_network_acl_remote_administration,
     control.vpc_igw_attached_to_authorized_vpc
   ]
@@ -218,11 +218,11 @@ benchmark "security_pillar_6" {
   children = [
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
     control.cloudtrail_trail_validation_enabled,
-    # CLOUDTRAIL_SECURITY_TRAIL_ENABLED
+    control.cloudtrail_security_trail_enabled,
     # ELASTIC_BEANSTALK_MANAGED_UPDATES_ENABLED
     control.redshift_cluster_maintenance_settings_check,
     control.ec2_instance_uses_imdsv2,
-    # EC2_INSTANCE_MULTIPLE_ENI_CHECK
+    control.ec2_instance_not_use_multiple_enis,
     control.ec2_instance_not_publicly_accessible, //not sure
     control.ec2_instance_iam_profile_attached,
     control.vpc_security_group_associated_to_eni,
@@ -239,7 +239,7 @@ benchmark "security_pillar_6" {
     control.lambda_function_restrict_public_access,
     control.lambda_function_use_latest_runtime,
     control.lambda_function_in_vpc,
-    # LAMBDA_VPC_MULTI_AZ_CHECK
+    control.lambda_function_multiple_az_configured,
     control.ebs_attached_volume_encryption_enabled,
     control.emr_cluster_master_nodes_no_public_ip
     # APPROVED_AMIS_BY_ID
@@ -297,7 +297,7 @@ benchmark "security_pillar_8" {
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.backup_recovery_point_encryption_enabled,
     # CODEBUILD_PROJECT_ARTIFACT_ENCRYPTION
-    # CODEBUILD_PROJECT_S3_LOGS_ENCRYPTED
+    control.codebuild_project_s3_logs_encryption_enabled,
     control.opensearch_domain_encryption_at_rest_enabled
   ]
 
@@ -323,7 +323,7 @@ benchmark "security_pillar_9" {
     control.vpc_flow_logs_enabled,
     control.guardduty_enabled
     # OPENSEARCH_NODE_TO_NODE_ENCRYPTION_CHECK
-    # OPENSEARCH_HTTPS_REQUIRED
+    control.opensearch_domain_https_required
   ]
 
   tags = merge(local.reliability_common_tags, {

@@ -6,7 +6,7 @@ locals {
 
 benchmark "reliability_pillar" {
   title       = "Reliability Pillar"
-  description = "TO-DO"
+  description = "The reliability pillar focuses on workloads performing their intended functions and how to recover quickly from failure to meet demands. Key topics include distributed system design, recovery planning, and adapting to changing requirements."
   children = [
     benchmark.reliability_pillar_1,
     benchmark.reliability_pillar_2,
@@ -76,7 +76,7 @@ benchmark "reliability_pillar_6" {
     control.cloudtrail_trail_integrated_with_logs,
     control.cloudtrail_trail_enabled,
     control.es_domain_logs_to_cloudwatch,
-    # OPENSEARCH_LOGS_TO_CLOUDWATCH
+    control.opensearch_domain_logs_to_cloudwatch,
     control.ecs_cluster_container_insights_enabled,
     control.elb_application_classic_lb_logging_enabled,
     control.cloudtrail_multi_region_trail_enabled,
@@ -172,7 +172,7 @@ benchmark "reliability_pillar_10" {
     control.s3_bucket_object_lock_enabled,
     control.vpc_vpn_tunnel_up,
     control.elb_classic_lb_multiple_az_configured,
-    # ELBV2_MULTIPLE_AZ
+    control.elb_application_gateway_network_lb_multiple_az_configured,
     control.lambda_function_multiple_az_configured
     # OPENSEARCH_DATA_NODE_FAULT_TOLERANCE
   ]
