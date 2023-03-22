@@ -296,7 +296,7 @@ benchmark "security_pillar_8" {
     control.s3_bucket_restrict_public_write_access,
     control.apigateway_stage_cache_encryption_at_rest_enabled,
     control.backup_recovery_point_encryption_enabled,
-    # CODEBUILD_PROJECT_ARTIFACT_ENCRYPTION
+    control.codebuild_project_artifact_encryption_enabled,
     control.codebuild_project_s3_logs_encryption_enabled,
     control.opensearch_domain_encryption_at_rest_enabled
   ]
