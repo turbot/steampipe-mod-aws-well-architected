@@ -26,10 +26,8 @@ benchmark "reliability_pillar_1" {
   title       = "REL 1: How do you manage service quotas and constraints?"
   description = "For cloud-based workload architectures, there are service quotas (which are also referred to as service limits). These quotas exist to prevent accidentally provisioning more resources than you need and to limit request rates on API operations so as to protect services from abuse. There are also resource constraints, for example, the rate that you can push bits down a fiber-optic cable, or the amount of storage on a physical disk."
   children = [
-    # DYNAMODB_THROUGHPUT_LIMIT_CHECK
     control.lambda_function_concurrent_execution_limit_configured,
     control.lambda_function_dead_letter_queue_configured
-    # ECS_TASK_DEFINITION_MEMORY_HARD_LIMIT
   ]
 
   tags = merge(local.reliability_common_tags, {
@@ -48,9 +46,9 @@ benchmark "reliability_pillar_2" {
     control.redshift_cluster_enhanced_vpc_routing_enabled,
     control.elb_classic_lb_cross_zone_load_balancing_enabled,
     control.elb_application_lb_waf_enabled,
-    # NLB_CROSS_ZONE_LOAD_BALANCING_ENABLED
+    control.elb_network_lb_cross_zone_load_balancing_enabled,
     control.vpc_endpoint_service_acceptance_required_enabled,
-    # VPC_PEERING_DNS_RESOLUTION_CHECK
+    control.vpc_peering_dns_resolution_check,
     control.vpc_security_group_restrict_ingress_tcp_udp_all
   ]
 
@@ -173,8 +171,8 @@ benchmark "reliability_pillar_10" {
     control.vpc_vpn_tunnel_up,
     control.elb_classic_lb_multiple_az_configured,
     control.elb_application_gateway_network_lb_multiple_az_configured,
-    control.lambda_function_multiple_az_configured
-    # OPENSEARCH_DATA_NODE_FAULT_TOLERANCE
+    control.lambda_function_multiple_az_configured,
+    control.opensearch_domain_data_node_fault_tolerance
   ]
 
   tags = merge(local.reliability_common_tags, {

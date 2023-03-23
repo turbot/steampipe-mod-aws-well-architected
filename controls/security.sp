@@ -82,7 +82,6 @@ benchmark "security_pillar_3" {
   children = [
     control.autoscaling_launch_config_public_ip_disabled,
     control.vpc_subnet_auto_assign_public_ip_disabled,
-    # control.ssm_document_publicly_accessible, // not present but present in main.js mapping
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.s3_bucket_restrict_public_write_access,
     control.s3_bucket_restrict_public_read_access,
@@ -111,7 +110,7 @@ benchmark "security_pillar_3" {
     control.ecs_task_definition_user_for_host_mode_check,
     control.ec2_instance_iam_profile_attached,
     control.ec2_instance_uses_imdsv2,
-    # ECS_TASK_DEFINITION_NONROOT_USER -
+    control.ecs_task_definition_non_root_user,
     control.ecs_task_definition_container_non_privileged,
     control.ecs_task_definition_container_readonly_root_filesystem,
     control.efs_access_point_enforce_user_identity,
@@ -147,9 +146,6 @@ benchmark "security_pillar_4" {
     control.cloudwatch_alarm_action_enabled,
     control.opensearch_domain_audit_logging_enabled,
     control.opensearch_domain_logs_to_cloudwatch
-    # control.cloudwatch_alarm_action_enabled, // cannot have same control twice
-    # CLOUDWATCH_ALARM_RESOURCE_CHECK
-    # CLOUDWATCH_ALARM_SETTINGS_CHECK
   ]
 
   tags = merge(local.reliability_common_tags, {
@@ -168,7 +164,6 @@ benchmark "security_pillar_5" {
     control.autoscaling_launch_config_public_ip_disabled,
     control.vpc_default_security_group_restricts_all_traffic,
     control.vpc_subnet_auto_assign_public_ip_disabled,
-    # control.ssm_document_publicly_accessible, // not present but present in main.js mapping
     control.sagemaker_notebook_instance_direct_internet_access_disabled,
     control.s3_bucket_restrict_public_write_access,
     control.s3_bucket_restrict_public_read_access,
@@ -192,13 +187,10 @@ benchmark "security_pillar_5" {
     control.elb_application_lb_waf_enabled,
     control.redshift_cluster_enhanced_vpc_routing_enabled,
     control.opensearch_domain_in_vpc,
-    control.waf_regional_rule_condition_attached
-    # WAF_REGIONAL_RULEGROUP_NOT_EMPTY
-    # WAF_REGIONAL_WEBACL_NOT_EMPTY
+    control.waf_regional_rule_condition_attached,
+    control.waf_rule_group_rule_attached,
+    control.waf_web_acl_rule_attached,
     control.vpc_network_acl_unused,
-    # FMS_SHIELD_RESOURCE_POLICY_CHECK
-    # FMS_WEBACL_RULEGROUP_ASSOCIATION_CHECK
-    # FMS_WEBACL_RESOURCE_POLICY_CHECK
     control.networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets,
     control.networkfirewall_firewall_policy_default_stateless_action_check_full_packets,
     control.networkfirewall_firewall_policy_rule_group_not_empty,
@@ -219,11 +211,10 @@ benchmark "security_pillar_6" {
     control.rds_db_instance_automatic_minor_version_upgrade_enabled,
     control.cloudtrail_trail_validation_enabled,
     control.cloudtrail_security_trail_enabled,
-    # ELASTIC_BEANSTALK_MANAGED_UPDATES_ENABLED
     control.redshift_cluster_maintenance_settings_check,
     control.ec2_instance_uses_imdsv2,
     control.ec2_instance_not_use_multiple_enis,
-    control.ec2_instance_not_publicly_accessible, //not sure
+    control.ec2_instance_not_publicly_accessible,
     control.ec2_instance_iam_profile_attached,
     control.vpc_security_group_associated_to_eni,
     control.ec2_stopped_instance_30_days,
@@ -242,8 +233,6 @@ benchmark "security_pillar_6" {
     control.lambda_function_multiple_az_configured,
     control.ebs_attached_volume_encryption_enabled,
     control.emr_cluster_master_nodes_no_public_ip
-    # APPROVED_AMIS_BY_ID
-    # APPROVED_AMIS_BY_TAG
   ]
 
   tags = merge(local.reliability_common_tags, {
@@ -256,9 +245,7 @@ benchmark "security_pillar_7" {
   description = "Classification provides a way to categorize data, based on criticality and sensitivity in order to help you determine appropriate protection and retention controls."
   children = [
     control.cloudwatch_log_group_retention_period_365,
-    control.guardduty_finding_archived,
-    # APPROVED_AMIS_BY_TAG
-    # REQUIRED_TAGS
+    control.guardduty_finding_archived
   ]
 
   tags = merge(local.reliability_common_tags, {
@@ -321,8 +308,7 @@ benchmark "security_pillar_9" {
     control.s3_bucket_enforces_ssl,
     control.elb_classic_lb_use_tls_https_listeners,
     control.vpc_flow_logs_enabled,
-    control.guardduty_enabled
-    # OPENSEARCH_NODE_TO_NODE_ENCRYPTION_CHECK
+    control.guardduty_enabled,
     control.opensearch_domain_https_required
   ]
 
