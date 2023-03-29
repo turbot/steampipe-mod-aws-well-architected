@@ -11,3 +11,6 @@
 # Steampipe variable files
 *.spvars
 *.auto.spvars
+
+# Cache json files
+*.cache.json
