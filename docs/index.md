@@ -6,16 +6,15 @@ repository: "https://github.com/turbot/steampipe-mod-aws-well-architected"
 
 Run individual configuration, compliance and security controls or full compliance benchmarks for Well-Architected framework controls across all your AWS accounts using Steampipe.
 
-<!-- <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_compliance_dashboard.png" width="50%" type="thumbnail"/>
-<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_dashboard.png" width="50%" type="thumbnail"/>
-<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_cis_v140_console.png" width="50%" type="thumbnail"/>
-<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-compliance/main/docs/aws_fsbp_dashboard.png" width="50%" type="thumbnail"/> -->
+<img src="https://raw.githubusercontent.com/turbot/teampipe-mod-aws-well-architected/main/docs/aws_well_architected_dashboardpng" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/teampipe-mod-aws-well-architected/main/docs/aws_well_architected_reliability_pillar_dashboard.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/teampipe-mod-aws-well-architected/main/docs/aws_well_architected_seurity_pillar_dashboard.png" width="50%" type="thumbnail"/>
 
 ## References
 
 [AWS](https://aws.amazon.com/) provides on-demand cloud computing platforms and APIs to authenticated customers on a metered pay-as-you-go basis.
 
-
+[AWS Well-Architected](https://aws.amazon.com/architecture/well-architected/) helps cloud architects build secure, high-performing, resilient, and efficient infrastructure for a variety of applications and workloads.
 
 [Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
 
@@ -86,7 +85,7 @@ steampipe check all
 Run a single benchmark:
 
 ```sh
-steampipe check benchmark.reliability_pillar
+steampipe check benchmark.security_pillar
 ```
 
 Run a specific control:
@@ -108,7 +107,19 @@ No extra configuration is required.
 
 ### Common and Tag Dimensions
 
-The benchmark queries use common properties (like `account_id`, `connection_name` and `region`) and tags that are defined in the dependent `AWS Compliance Mod`.
+The benchmark queries use common properties (like `account_id`, `connection_name` and `region`) and tags that are defined in the dependent `AWS Compliance Mod`. These properties can be executed in the following ways:
+
+- Copy and rename the `steampipe.spvars.example` file to `steampipe.spvars`, and then modify the variable values inside that file
+
+- Pass in a value on the command line:
+
+  ```shell
+  steampipe check benchmark.security_pillar --var 'aws_compliance.common_dimensions=["account_id", "connection_name", "region"]'
+  ```
+
+  ```shell
+  steampipe check benchmark.security_pillar --var 'aws_compliance.tag_dimensions=["Environment", "Owner"]'
+  ```
 
 ## Contributing
 
