@@ -121,6 +121,8 @@ The benchmark queries use common properties (like `account_id`, `connection_name
   steampipe check benchmark.security_pillar --var 'aws_compliance.tag_dimensions=["Environment", "Owner"]'
   ```
 
+  For more info refer [Passing Variables for Dependency Mods](https://steampipe.io/docs/mods/mod-variables#passing-variables-for-dependency-mods)
+
 ## Contributing
 
 If you have an idea for additional controls or just want to help maintain and extend this mod ([or others](https://github.com/topics/steampipe-mod)) we would love you to join the community and start contributing.
