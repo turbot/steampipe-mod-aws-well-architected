@@ -1,5 +1,5 @@
 locals {
-  reliability_common_tags = merge(local.aws_well_architected_common_tags, {
+  security_common_tags = merge(local.aws_well_architected_common_tags, {
     benchmark = "security"
   })
 }
@@ -19,7 +19,7 @@ benchmark "security_pillar" {
     benchmark.security_pillar_9
   ]
 
-  tags = merge(local.reliability_common_tags, {
+  tags = merge(local.security_common_tags, {
     type = "Benchmark"
   })
 }
@@ -40,7 +40,7 @@ benchmark "security_pillar_1" {
     control.iam_user_mfa_enabled
   ]
 
-  tags = merge(local.reliability_common_tags, {
+  tags = merge(local.security_common_tags, {
     type = "Benchmark"
   })
 }
@@ -71,7 +71,7 @@ benchmark "security_pillar_2" {
     control.iam_policy_custom_no_blocked_kms_actions
   ]
 
-  tags = merge(local.reliability_common_tags, {
+  tags = merge(local.security_common_tags, {
     type = "Benchmark"
   })
 }
@@ -119,7 +119,7 @@ benchmark "security_pillar_3" {
     control.secretsmanager_secret_unused_90_day
   ]
 
-  tags = merge(local.reliability_common_tags, {
+  tags = merge(local.security_common_tags, {
     type = "Benchmark"
   })
 }
@@ -148,7 +148,7 @@ benchmark "security_pillar_4" {
     control.opensearch_domain_logs_to_cloudwatch
   ]
 
-  tags = merge(local.reliability_common_tags, {
+  tags = merge(local.security_common_tags, {
     type = "Benchmark"
   })
 }
@@ -200,7 +200,7 @@ benchmark "security_pillar_5" {
     control.vpc_igw_attached_to_authorized_vpc
   ]
 
-  tags = merge(local.reliability_common_tags, {
+  tags = merge(local.security_common_tags, {
     type = "Benchmark"
   })
 }
@@ -236,7 +236,7 @@ benchmark "security_pillar_6" {
     control.emr_cluster_master_nodes_no_public_ip
   ]
 
-  tags = merge(local.reliability_common_tags, {
+  tags = merge(local.security_common_tags, {
     type = "Benchmark"
   })
 }
@@ -249,7 +249,7 @@ benchmark "security_pillar_7" {
     control.guardduty_finding_archived
   ]
 
-  tags = merge(local.reliability_common_tags, {
+  tags = merge(local.security_common_tags, {
     type = "Benchmark"
   })
 }
@@ -289,7 +289,7 @@ benchmark "security_pillar_8" {
     control.opensearch_domain_encryption_at_rest_enabled
   ]
 
-  tags = merge(local.reliability_common_tags, {
+  tags = merge(local.security_common_tags, {
     type = "Benchmark"
   })
 }
@@ -313,7 +313,7 @@ benchmark "security_pillar_9" {
     control.opensearch_domain_https_required
   ]
 
-  tags = merge(local.reliability_common_tags, {
+  tags = merge(local.security_common_tags, {
     type = "Benchmark"
   })
 }
