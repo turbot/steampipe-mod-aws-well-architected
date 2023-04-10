@@ -3,7 +3,7 @@
 200+ checks covering AWS Well-Architected Framework defined best practices across all AWS regions.
 
 Run checks in a dashboard:
-![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_seurity_pillar_dashboard.png)
+![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_security_pillar_dashboard.png)
 
 Includes support for:
 * [Reliability Pillar](https://hub.steampipe.io/mods/turbot/aws_well_architected/controls/benchmark.reliability)
