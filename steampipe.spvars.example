@@ -1,0 +1,5 @@
+# For other ways to pass variables for dependency mods, please see https://steampipe.io/docs/mods/mod-variables#passing-variables-for-dependency-mods
+
+# Dimensions
+aws_compliance.common_dimensions = ["account_id", "region"]
+aws_compliance.tag_dimensions = []
