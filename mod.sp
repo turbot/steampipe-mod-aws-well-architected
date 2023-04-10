@@ -10,7 +10,7 @@ locals {
 mod "aws_well_architected" {
   # hub metadata
   title         = "AWS Well-Architected"
-  description   = "Run individual configuration, compliance and security controls or full compliance benchmarks for Well-Architected framework controls across all your AWS accounts using Steampipe."
+  description   = "Run controls across all of your AWS accounts to check if they are following AWS Well-Architected Framework best practices using Steampipe."
   color         = "#FF9900"
   documentation = file("./docs/index.md")
   icon          = "/images/mods/turbot/aws-well-architected.svg"
@@ -18,12 +18,11 @@ mod "aws_well_architected" {
 
   opengraph {
     title       = "Steampipe Mod for AWS Well-Architected"
-    description = "Run individual configuration, compliance and security controls or full compliance benchmarks for Well-Architected framework controls across all your AWS accounts using Steampipe."
+  description   = "Run controls across all of your AWS accounts to check if they are following AWS Well-Architected Framework best practices using Steampipe."
     image       = "/images/mods/turbot/aws-well-architected-social-graphic.png"
   }
 
   require {
-    steampipe = "0.19.1"
     mod "github.com/turbot/steampipe-mod-aws-compliance" {
       version = "^0.59.0"
     }

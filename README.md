@@ -1,16 +1,13 @@
 # AWS Well-Architected Mod for Steampipe
 
-270+ checks covering industry defined security best practices across all AWS regions. Includes full support for AWS Well-Architected Framework.
+200+ checks covering AWS Well-Architected Framework defined best practices across all AWS regions.
 
 Run checks in a dashboard:
 ![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_seurity_pillar_dashboard.png)
 
-Or in a terminal:
-<!-- ![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/.png) -->
-
 Includes support for:
-* [Reliability Pillar](https://hub.steampipe.io/mods/turbot/aws_well_architected/controls/benchmark.reliability_pillar)
-* [Security Pillar](https://hub.steampipe.io/mods/turbot/aws_well_architected/controls/benchmark.security_pillar)
+* [Reliability Pillar](https://hub.steampipe.io/mods/turbot/aws_well_architected/controls/benchmark.reliability)
+* [Security Pillar](https://hub.steampipe.io/mods/turbot/aws_well_architected/controls/benchmark.security)
 
 ## Getting started
 
@@ -69,16 +66,16 @@ Run all benchmarks:
 steampipe check all
 ```
 
-Run a single benchmark:
+Run a benchmark for a specific pillar:
 
 ```sh
-steampipe check benchmark.security_pillar
+steampipe check benchmark.security
 ```
 
-Run a specific control:
+Run a benchmark for a specific pillar best practice:
 
 ```sh
-steampipe check control.apigateway_rest_api_stage_xray_tracing_enabled
+steampipe check benchmark.security_1
 ```
 
 Different output formats are also available, for more information please see
@@ -94,21 +91,21 @@ No extra configuration is required.
 
 ### Common and Tag Dimensions
 
-The benchmark queries use common properties (like `account_id`, `connection_name` and `region`) and tags that are defined in the dependent `AWS Compliance Mod`. These properties can be executed in the following ways:
+The benchmark queries use common properties (like `account_id`, `connection_name` and `region`) and tags that are defined in the dependent [AWS Compliance mod](https://github.com/turbot/steampipe-mod-aws-compliance). These properties can be executed in the following ways:
 
 - Copy and rename the `steampipe.spvars.example` file to `steampipe.spvars`, and then modify the variable values inside that file
 
 - Pass in a value on the command line:
 
   ```shell
-  steampipe check benchmark.security_pillar --var 'aws_compliance.common_dimensions=["account_id", "connection_name", "region"]'
+  steampipe check benchmark.security --var 'aws_compliance.common_dimensions=["account_id", "connection_name", "region"]'
   ```
 
   ```shell
-  steampipe check benchmark.security_pillar --var 'aws_compliance.tag_dimensions=["Environment", "Owner"]'
+  steampipe check benchmark.security --var 'aws_compliance.tag_dimensions=["Environment", "Owner"]'
   ```
 
-For more info refer [Passing Variables for Dependency Mods](https://steampipe.io/docs/mods/mod-variables#passing-variables-for-dependency-mods)
+For other ways to pass variables for dependency mods, please see [Passing Variables for Dependency Mods](https://steampipe.io/docs/mods/mod-variables#passing-variables-for-dependency-mods).
 
 ## Contributing
 

@@ -4,7 +4,7 @@ locals {
   })
 }
 
-control "efs_access_point_enforce_user_identity" {
+control "efs_access_point_enforces_user_identity" {
   title       = "EFS access points should enforce a user identity"
   description = "This control checks whether EFS access points are configured to enforce a user identity. This control fails if a POSIX user identity is not defined while creating the EFS access point."
   query       = query.efs_access_point_enforces_user_identity

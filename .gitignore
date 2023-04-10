@@ -12,5 +12,11 @@
 *.spvars
 *.auto.spvars
 
+# Steampipe mod depdencies
+.steampipe
+
 # Cache json files
 *.cache.json
+
+# Ignore Desktop Services Store files
+.DS_Store
