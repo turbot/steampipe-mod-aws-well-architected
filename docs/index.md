@@ -1,13 +1,29 @@
-# AWS Well-Architected Mod for Steampipe
+---
+repository: "https://github.com/turbot/steampipe-mod-aws-well-architected"
+---
 
-200+ checks covering AWS Well-Architected Framework defined best practices across all AWS regions.
+# AWS Well-Architected Mod
 
-Run checks in a dashboard:
-![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_seurity_pillar_dashboard.png)
+Run controls across all of your AWS accounts to check if they are following AWS Well-Architected Framework best practices using Steampipe.
 
-Includes support for:
-* [Reliability Pillar](https://hub.steampipe.io/mods/turbot/aws_well_architected/controls/benchmark.reliability)
-* [Security Pillar](https://hub.steampipe.io/mods/turbot/aws_well_architected/controls/benchmark.security)
+<img src="https://raw.githubusercontent.com/turbot/teampipe-mod-aws-well-architected/main/docs/aws_well_architected_dashboard.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/teampipe-mod-aws-well-architected/main/docs/aws_well_architected_reliability_pillar_dashboard.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/teampipe-mod-aws-well-architected/main/docs/aws_well_architected_seurity_pillar_dashboard.png" width="50%" type="thumbnail"/>
+
+## References
+
+[AWS](https://aws.amazon.com/) provides on-demand cloud computing platforms and APIs to authenticated customers on a metered pay-as-you-go basis.
+
+[AWS Well-Architected](https://aws.amazon.com/architecture/well-architected/) helps cloud architects build secure, high-performing, resilient, and efficient infrastructure for a variety of applications and workloads.
+
+[Steampipe](https://steampipe.io) is an open source CLI to instantly query cloud APIs using SQL.
+
+[Steampipe Mods](https://steampipe.io/docs/reference/mod-resources#mod) are collections of `named queries`, and codified `controls` that can be used to test current configuration of your cloud resources against a desired configuration.
+
+## Documentation
+
+- **[Benchmarks and controls →](https://hub.steampipe.io/mods/turbot/aws_well_architected/controls)**
+- **[Named queries →](https://hub.steampipe.io/mods/turbot/aws_well_architected/queries)**
 
 ## Getting started
 
@@ -66,6 +82,12 @@ Run all benchmarks:
 steampipe check all
 ```
 
+Run a single benchmark:
+
+```sh
+steampipe check benchmark.security
+```
+
 Run a benchmark for a specific pillar:
 
 ```sh
@@ -105,7 +127,7 @@ The benchmark queries use common properties (like `account_id`, `connection_name
   steampipe check benchmark.security --var 'aws_compliance.tag_dimensions=["Environment", "Owner"]'
   ```
 
-For other ways to pass variables for dependency mods, please see [Passing Variables for Dependency Mods](https://steampipe.io/docs/mods/mod-variables#passing-variables-for-dependency-mods).
+  For more info refer [Passing Variables for Dependency Mods](https://steampipe.io/docs/mods/mod-variables#passing-variables-for-dependency-mods)
 
 ## Contributing
 
