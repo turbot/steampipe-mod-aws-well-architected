@@ -299,6 +299,7 @@ benchmark "security_9" {
   description = "Protect your data in transit by implementing multiple controls to reduce the risk of unauthorized access or loss."
   children = [
     aws_compliance.control.acm_certificate_expires_30_days,
+    aws_compliance.control.apigateway_rest_api_stage_use_ssl_certificate,
     aws_compliance.control.elb_application_lb_drop_http_headers,
     aws_compliance.control.elb_application_lb_redirect_http_request_to_https,
     aws_compliance.control.elb_application_network_lb_use_ssl_certificate,
@@ -309,7 +310,6 @@ benchmark "security_9" {
     aws_compliance.control.redshift_cluster_encryption_in_transit_enabled,
     aws_compliance.control.s3_bucket_enforces_ssl,
     aws_compliance.control.vpc_flow_logs_enabled,
-    control.apigateway_rest_api_stage_use_ssl_certificate,
     control.opensearch_domain_https_required,
     control.opensearch_domain_node_to_node_encryption_enabled
   ]
