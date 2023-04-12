@@ -14,16 +14,6 @@ control "opensearch_domain_in_vpc" {
   })
 }
 
-control "opensearch_domain_encryption_at_rest_enabled" {
-  title       = "OpenSearch domains should have encryption at rest enabled"
-  description = "This control checks whether Amazon OpenSearch domains have encryption-at-rest configuration enabled. The check fails if encryption at rest is not enabled."
-  query       = query.opensearch_domain_encryption_at_rest
-
-  tags = merge(local.conformance_pack_opensearch_common_tags, {
-    well_architected = "true"
-  })
-}
-
 control "opensearch_domain_data_node_fault_tolerance" {
   title       = "OpenSearch domains data node should be fault tolerant"
   description = "This control checks if Amazon OpenSearch Service domains are configured with at least three data nodes and zoneAwarenessEnabled is true. The rule is non compliant for an OpenSearch domain if 'instanceCount' is less than 3 or 'zoneAwarenessEnabled' is set to 'false'."
@@ -31,26 +21,6 @@ control "opensearch_domain_data_node_fault_tolerance" {
 
   tags = merge(local.conformance_pack_opensearch_common_tags, {
     well_architected = "true"
-  })
-}
-
-control "opensearch_domain_node_to_node_encryption_enabled" {
-  title       = "OpenSearch domain node-to-node encryption should be enabled"
-  description = "This control check if Amazon OpenSearch Service nodes are encrypted end to end. The rule is non compliant if the node-to-node encryption is not enabled on the domain."
-  query       = query.opensearch_domain_node_to_node_encryption_enabled
-
-  tags = merge(local.conformance_pack_opensearch_common_tags, {
-    well_architected = "true"
-  })
-}
-
-control "opensearch_domain_https_required" {
-  title       = "OpenSearch domains should use HTTPS"
-  description = "This control checks whether connections to OpenSearch domains are using HTTPS. The rule is non compliant if the OpenSearch domain 'EnforceHTTPS' is not 'true' or is 'true' and 'TLSSecurityPolicy' is not in 'tlsPolicies'."
-  query       = query.opensearch_domain_https_required
-
-  tags = merge(local.conformance_pack_opensearch_common_tags, {
-    well_architected       = "true"
   })
 }
 
@@ -95,25 +65,6 @@ query "opensearch_domains_in_vpc" {
   EOQ
 }
 
-query "opensearch_domain_encryption_at_rest" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when encryption_at_rest_options ->> 'Enabled' = 'false' then 'alarm'
-        else 'ok'
-      end status,
-      case
-        when encryption_at_rest_options ->> 'Enabled' = 'false' then title || ' encryption at rest not enabled.'
-        else title || ' encryption at rest enabled.'
-      end reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_opensearch_domain;
-  EOQ
-}
-
 query "opensearch_domain_data_node_fault_tolerance" {
   sql = <<-EOQ
     select
@@ -133,42 +84,3 @@ query "opensearch_domain_data_node_fault_tolerance" {
   EOQ
 }
 
-query "opensearch_domain_node_to_node_encryption_enabled" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1']) then 'skip'
-        when node_to_node_encryption_options_enabled then 'ok'
-        else 'alarm'
-      end as status,
-      case
-        when region = any(array['af-south-1', 'eu-south-1', 'cn-north-1', 'cn-northwest-1']) then title || ' node-to-node encryption not supported in ' || region || '.'
-        when node_to_node_encryption_options_enabled then title || ' node-to-node encryption enabled.'
-        else title || ' node-to-node encryption disabled.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_opensearch_domain;
-  EOQ
-}
-
-query "opensearch_domain_https_required" {
-  sql = <<-EOQ
-    select
-      arn as resource,
-      case
-        when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then 'alarm'
-        else 'ok'
-      end as status,
-      case
-        when (domain_endpoint_options ->> 'EnforceHTTPS' = 'false') or (domain_endpoint_options ->> 'EnforceHTTPS' = 'true' and domain_endpoint_options ->> 'TLSSecurityPolicy' not in ('tlsPolicies')) then title || ' not using HTTPS.'
-        else title || ' using HTTPS.'
-      end as reason
-      ${local.tag_dimensions_sql}
-      ${local.common_dimensions_sql}
-    from
-      aws_opensearch_domain;
-  EOQ
-}

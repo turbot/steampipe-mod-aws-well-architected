@@ -194,8 +194,8 @@ benchmark "security_5" {
     control.networkfirewall_firewall_policy_rule_group_not_empty,
     control.networkfirewall_stateless_rule_group_not_empty,
     control.opensearch_domain_in_vpc,
-    control.vpc_network_acl_remote_administration,
-    control.waf_regional_rule_condition_attached,
+    aws_compliance.control.vpc_network_acl_remote_administration,
+    aws_compliance.control.waf_regional_rule_condition_attached,
     control.waf_regional_rule_group_rule_attached,
     control.waf_regional_web_acl_rule_attached
   ]
@@ -285,8 +285,8 @@ benchmark "security_8" {
     aws_compliance.control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     aws_compliance.control.secretsmanager_secret_encrypted_with_kms_cmk,
     aws_compliance.control.sns_topic_encrypted_at_rest,
-    control.codebuild_project_s3_logs_encryption_enabled,
-    control.opensearch_domain_encryption_at_rest_enabled
+    aws_compliance.control.codebuild_project_s3_logs_encryption_enabled,
+    aws_compliance.control.opensearch_domain_encryption_at_rest_enabled
   ]
 
   tags = merge(local.security_common_tags, {
@@ -309,9 +309,9 @@ benchmark "security_9" {
     aws_compliance.control.redshift_cluster_encryption_in_transit_enabled,
     aws_compliance.control.s3_bucket_enforces_ssl,
     aws_compliance.control.vpc_flow_logs_enabled,
-    control.apigateway_rest_api_stage_use_ssl_certificate,
-    control.opensearch_domain_https_required,
-    control.opensearch_domain_node_to_node_encryption_enabled
+    aws_compliance.control.apigateway_rest_api_stage_use_ssl_certificate,
+    aws_compliance.control.opensearch_domain_https_required,
+    aws_compliance.control.opensearch_domain_node_to_node_encryption_enabled
   ]
 
   tags = merge(local.security_common_tags, {
