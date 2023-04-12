@@ -147,8 +147,8 @@ benchmark "reliability_9" {
     aws_compliance.control.redshift_cluster_automatic_snapshots_min_7_days,
     aws_compliance.control.redshift_cluster_kms_enabled,
     aws_compliance.control.s3_bucket_cross_region_replication_enabled,
-    aws_compliance.control.s3_bucket_default_encryption_enabled_kms,
     aws_compliance.control.s3_bucket_default_encryption_enabled,
+    aws_compliance.control.s3_bucket_default_encryption_enabled_kms,
     aws_compliance.control.s3_bucket_object_lock_enabled,
     aws_compliance.control.s3_bucket_versioning_enabled
   ]
