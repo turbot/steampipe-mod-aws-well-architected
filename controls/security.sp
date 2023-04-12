@@ -271,7 +271,7 @@ benchmark "security_8" {
     aws_compliance.control.es_domain_encryption_at_rest_enabled,
     aws_compliance.control.kms_key_not_pending_deletion,
     aws_compliance.control.log_group_encryption_at_rest_enabled,
-    aws_compliance.control.opensearch_domain_encryption_at_rest_enabled
+    aws_compliance.control.opensearch_domain_encryption_at_rest_enabled,
     aws_compliance.control.rds_db_instance_encryption_at_rest_enabled,
     aws_compliance.control.rds_db_snapshot_encrypted_at_rest,
     aws_compliance.control.redshift_cluster_encryption_logging_enabled,
@@ -286,7 +286,7 @@ benchmark "security_8" {
     aws_compliance.control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     aws_compliance.control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     aws_compliance.control.secretsmanager_secret_encrypted_with_kms_cmk,
-    aws_compliance.control.sns_topic_encrypted_at_rest,
+    aws_compliance.control.sns_topic_encrypted_at_rest
   ]
 
   tags = merge(local.security_common_tags, {
@@ -308,10 +308,10 @@ benchmark "security_9" {
     aws_compliance.control.es_domain_node_to_node_encryption_enabled,
     aws_compliance.control.guardduty_enabled,
     aws_compliance.control.opensearch_domain_https_required,
-    aws_compliance.control.opensearch_domain_node_to_node_encryption_enabled
+    aws_compliance.control.opensearch_domain_node_to_node_encryption_enabled,
     aws_compliance.control.redshift_cluster_encryption_in_transit_enabled,
     aws_compliance.control.s3_bucket_enforces_ssl,
-    aws_compliance.control.vpc_flow_logs_enabled,
+    aws_compliance.control.vpc_flow_logs_enabled
   ]
 
   tags = merge(local.security_common_tags, {
