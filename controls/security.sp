@@ -102,21 +102,21 @@ benchmark "security_3" {
     aws_compliance.control.iam_user_unused_credentials_90,
     aws_compliance.control.lambda_function_in_vpc,
     aws_compliance.control.lambda_function_restrict_public_access,
+    aws_compliance.control.opensearch_domain_in_vpc,
     aws_compliance.control.rds_db_instance_prohibit_public_access,
     aws_compliance.control.rds_db_snapshot_prohibit_public_access,
     aws_compliance.control.redshift_cluster_prohibit_public_access,
     aws_compliance.control.s3_bucket_restrict_public_read_access,
     aws_compliance.control.s3_bucket_restrict_public_write_access,
-    aws_compliance.control.s3_public_access_block_bucket,
     aws_compliance.control.s3_public_access_block_bucket_account,
+    aws_compliance.control.s3_public_access_block_bucket,
     aws_compliance.control.sagemaker_notebook_instance_direct_internet_access_disabled,
     aws_compliance.control.secretsmanager_secret_unused_90_day,
     aws_compliance.control.vpc_subnet_auto_assign_public_ip_disabled,
     control.ecs_task_definition_container_non_privileged,
     control.ecs_task_definition_container_readonly_root_filesystem,
     control.ecs_task_definition_non_root_user,
-    control.efs_access_point_enforces_user_identity,
-    control.opensearch_domain_in_vpc
+    control.efs_access_point_enforces_user_identity
   ]
 
   tags = merge(local.security_common_tags, {
@@ -169,6 +169,7 @@ benchmark "security_5" {
     aws_compliance.control.guardduty_enabled,
     aws_compliance.control.lambda_function_in_vpc,
     aws_compliance.control.lambda_function_restrict_public_access,
+    aws_compliance.control.opensearch_domain_in_vpc,
     aws_compliance.control.rds_db_instance_prohibit_public_access,
     aws_compliance.control.rds_db_snapshot_prohibit_public_access,
     aws_compliance.control.redshift_cluster_enhanced_vpc_routing_enabled,
@@ -195,7 +196,6 @@ benchmark "security_5" {
     control.networkfirewall_firewall_policy_default_stateless_action_check_full_packets,
     control.networkfirewall_firewall_policy_rule_group_not_empty,
     control.networkfirewall_stateless_rule_group_not_empty,
-    control.opensearch_domain_in_vpc,
     control.waf_regional_rule_group_rule_attached,
     control.waf_regional_web_acl_rule_attached
   ]
