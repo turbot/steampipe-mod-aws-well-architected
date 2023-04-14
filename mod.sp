@@ -24,7 +24,7 @@ mod "aws_well_architected" {
 
   require {
     mod "github.com/turbot/steampipe-mod-aws-compliance" {
-      version = "^0.59.0"
+      version = "^0.62.0"
     }
   }
 }
