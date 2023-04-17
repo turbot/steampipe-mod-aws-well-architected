@@ -1,5 +1,5 @@
 locals {
-  conformance_pack_waf_common_tags = merge(local.aws_compliance_common_tags, {
+  conformance_pack_waf_common_tags = merge(local.aws_well_architected_common_tags, {
     service = "AWS/waf"
   })
 }
@@ -10,7 +10,7 @@ control "waf_regional_web_acl_rule_attached" {
   query       = query.waf_regional_web_acl_rule_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
-    well_architected       = "true"
+    well_architected = "true"
   })
 }
 
@@ -20,7 +20,7 @@ control "waf_regional_rule_group_rule_attached" {
   query       = query.waf_regional_rule_group_rule_attached
 
   tags = merge(local.conformance_pack_waf_common_tags, {
-    well_architected       = "true"
+    well_architected = "true"
   })
 }
 
