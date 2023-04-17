@@ -102,21 +102,21 @@ benchmark "security_3" {
     aws_compliance.control.iam_user_unused_credentials_90,
     aws_compliance.control.lambda_function_in_vpc,
     aws_compliance.control.lambda_function_restrict_public_access,
+    aws_compliance.control.opensearch_domain_in_vpc,
     aws_compliance.control.rds_db_instance_prohibit_public_access,
     aws_compliance.control.rds_db_snapshot_prohibit_public_access,
     aws_compliance.control.redshift_cluster_prohibit_public_access,
     aws_compliance.control.s3_bucket_restrict_public_read_access,
     aws_compliance.control.s3_bucket_restrict_public_write_access,
-    aws_compliance.control.s3_public_access_block_bucket,
     aws_compliance.control.s3_public_access_block_bucket_account,
+    aws_compliance.control.s3_public_access_block_bucket,
     aws_compliance.control.sagemaker_notebook_instance_direct_internet_access_disabled,
     aws_compliance.control.secretsmanager_secret_unused_90_day,
     aws_compliance.control.vpc_subnet_auto_assign_public_ip_disabled,
     control.ecs_task_definition_container_non_privileged,
     control.ecs_task_definition_container_readonly_root_filesystem,
     control.ecs_task_definition_non_root_user,
-    control.efs_access_point_enforces_user_identity,
-    control.opensearch_domain_in_vpc
+    control.efs_access_point_enforces_user_identity
   ]
 
   tags = merge(local.security_common_tags, {
@@ -169,6 +169,7 @@ benchmark "security_5" {
     aws_compliance.control.guardduty_enabled,
     aws_compliance.control.lambda_function_in_vpc,
     aws_compliance.control.lambda_function_restrict_public_access,
+    aws_compliance.control.opensearch_domain_in_vpc,
     aws_compliance.control.rds_db_instance_prohibit_public_access,
     aws_compliance.control.rds_db_snapshot_prohibit_public_access,
     aws_compliance.control.redshift_cluster_enhanced_vpc_routing_enabled,
@@ -181,21 +182,20 @@ benchmark "security_5" {
     aws_compliance.control.vpc_default_security_group_restricts_all_traffic,
     aws_compliance.control.vpc_flow_logs_enabled,
     aws_compliance.control.vpc_igw_attached_to_authorized_vpc,
+    aws_compliance.control.vpc_network_acl_remote_administration,
     aws_compliance.control.vpc_network_acl_unused,
     aws_compliance.control.vpc_route_table_restrict_public_access_to_igw,
     aws_compliance.control.vpc_security_group_restrict_ingress_ssh_all,
     aws_compliance.control.vpc_security_group_restrict_ingress_tcp_udp_all,
     aws_compliance.control.vpc_security_group_restricted_common_ports,
     aws_compliance.control.vpc_subnet_auto_assign_public_ip_disabled,
+    aws_compliance.control.waf_regional_rule_condition_attached,
     aws_compliance.control.waf_web_acl_resource_associated,
     control.ec2_instance_not_use_multiple_enis,
     control.networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets,
     control.networkfirewall_firewall_policy_default_stateless_action_check_full_packets,
     control.networkfirewall_firewall_policy_rule_group_not_empty,
     control.networkfirewall_stateless_rule_group_not_empty,
-    control.opensearch_domain_in_vpc,
-    control.vpc_network_acl_remote_administration,
-    control.waf_regional_rule_condition_attached,
     control.waf_regional_rule_group_rule_attached,
     control.waf_regional_web_acl_rule_attached
   ]
@@ -263,6 +263,7 @@ benchmark "security_8" {
     aws_compliance.control.backup_recovery_point_encryption_enabled,
     aws_compliance.control.cloudtrail_trail_logs_encrypted_with_kms_cmk,
     aws_compliance.control.codebuild_project_artifact_encryption_enabled,
+    aws_compliance.control.codebuild_project_s3_logs_encryption_enabled,
     aws_compliance.control.dynamodb_table_encrypted_with_kms,
     aws_compliance.control.ebs_attached_volume_encryption_enabled,
     aws_compliance.control.ec2_ebs_default_encryption_enabled,
@@ -270,6 +271,7 @@ benchmark "security_8" {
     aws_compliance.control.es_domain_encryption_at_rest_enabled,
     aws_compliance.control.kms_key_not_pending_deletion,
     aws_compliance.control.log_group_encryption_at_rest_enabled,
+    aws_compliance.control.opensearch_domain_encryption_at_rest_enabled,
     aws_compliance.control.rds_db_instance_encryption_at_rest_enabled,
     aws_compliance.control.rds_db_snapshot_encrypted_at_rest,
     aws_compliance.control.redshift_cluster_encryption_logging_enabled,
@@ -284,9 +286,7 @@ benchmark "security_8" {
     aws_compliance.control.sagemaker_endpoint_configuration_encryption_at_rest_enabled,
     aws_compliance.control.sagemaker_notebook_instance_encryption_at_rest_enabled,
     aws_compliance.control.secretsmanager_secret_encrypted_with_kms_cmk,
-    aws_compliance.control.sns_topic_encrypted_at_rest,
-    control.codebuild_project_s3_logs_encryption_enabled,
-    control.opensearch_domain_encryption_at_rest_enabled
+    aws_compliance.control.sns_topic_encrypted_at_rest
   ]
 
   tags = merge(local.security_common_tags, {
@@ -307,11 +307,11 @@ benchmark "security_9" {
     aws_compliance.control.elb_classic_lb_use_tls_https_listeners,
     aws_compliance.control.es_domain_node_to_node_encryption_enabled,
     aws_compliance.control.guardduty_enabled,
+    aws_compliance.control.opensearch_domain_https_required,
+    aws_compliance.control.opensearch_domain_node_to_node_encryption_enabled,
     aws_compliance.control.redshift_cluster_encryption_in_transit_enabled,
     aws_compliance.control.s3_bucket_enforces_ssl,
-    aws_compliance.control.vpc_flow_logs_enabled,
-    control.opensearch_domain_https_required,
-    control.opensearch_domain_node_to_node_encryption_enabled
+    aws_compliance.control.vpc_flow_logs_enabled
   ]
 
   tags = merge(local.security_common_tags, {

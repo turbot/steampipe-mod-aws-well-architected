@@ -50,7 +50,7 @@ query "lambda_function_multiple_az" {
     select
       arn as resource,
       case
-        when vpc_id is null then 'skip'
+        when vpc_id is null or vpc_id = '' then 'skip'
         else case
           when
           (
@@ -66,7 +66,7 @@ query "lambda_function_multiple_az" {
         end
       end as status,
       case
-        when vpc_id is null then title || ' is not in VPC.'
+        when vpc_id is null or vpc_id = '' then title || ' is not in VPC.'
         else title || ' has ' || jsonb_array_length(vpc_subnet_ids) || ' availability zone(s).'
       end as reason
       ${local.tag_dimensions_sql}
