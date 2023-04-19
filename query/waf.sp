@@ -1,5 +1,5 @@
 locals {
-  conformance_pack_waf_common_tags = merge(local.aws_compliance_common_tags, {
+  conformance_pack_waf_common_tags = merge(local.aws_well_architected_common_tags, {
     service = "AWS/waf"
   })
 }
