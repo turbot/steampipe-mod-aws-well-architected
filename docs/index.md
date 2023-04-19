@@ -49,7 +49,7 @@ git clone https://github.com/turbot/steampipe-mod-aws-well-architected.git
 cd steampipe-mod-aws-well-architected
 ```
 
-Install all dependent mods:
+Install mod dependencies:
 
 ```sh
 steampipe mod install
