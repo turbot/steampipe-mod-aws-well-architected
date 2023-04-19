@@ -17,6 +17,12 @@ dashboard "wellarchitected_workload_detail" {
 
     card {
       width = 2
+      query = query.wellarchitected_workload_answered_question_count
+      args  = [self.input.workload_arn.value]
+    }
+
+    card {
+      width = 2
       query = query.wellarchitected_workload_high_risks_count
       args  = [self.input.workload_arn.value]
     }
@@ -24,6 +30,18 @@ dashboard "wellarchitected_workload_detail" {
     card {
       width = 2
       query = query.wellarchitected_workload_medium_risks_count
+      args  = [self.input.workload_arn.value]
+    }
+
+    card {
+      width = 2
+      query = query.wellarchitected_workload_none_risks_count
+      args  = [self.input.workload_arn.value]
+    }
+
+    card {
+      width = 2
+      query = query.wellarchitected_workload_not_applicable_risks_count
       args  = [self.input.workload_arn.value]
     }
 
@@ -48,13 +66,13 @@ dashboard "wellarchitected_workload_detail" {
       }
 
       series none_risks {
-        title = "No Risk"
+        title = "No Improvements"
         color = "green"
       }
 
       series not_applicable_risks {
         title = "N/A"
-        color = "blue"
+        color = "gray"
       }
 
       series unanswered_risks {
@@ -94,13 +112,13 @@ dashboard "wellarchitected_workload_detail" {
       }
 
       series none_risks {
-        title = "No Risk"
+        title = "No Improvements"
         color = "green"
       }
 
       series not_applicable_risks {
         title = "N/A"
-        color = "blue"
+        color = "gray"
       }
 
       series unanswered_risks {
@@ -150,9 +168,9 @@ query "wellarchitected_workload_high_risks_count" {
   sql = <<-EOQ
     select
       'High Risks' as label,
-      (risk_counts ->> 'HIGH')::int as value,
+      coalesce((risk_counts ->> 'HIGH')::int, 0) as value,
       case
-        (risk_counts ->> 'HIGH')::int when 0 then 'ok'
+        coalesce((risk_counts ->> 'HIGH')::int, 0) when 0 then 'ok'
         else 'alert'
       end as type
     from
@@ -166,15 +184,62 @@ query "wellarchitected_workload_medium_risks_count" {
   sql = <<-EOQ
     select
       'Medium Risks' as label,
-      (risk_counts ->> 'MEDIUM')::int as value,
+      coalesce((risk_counts ->> 'MEDIUM')::int, 0) as value,
       case
-        (risk_counts ->> 'MEDIUM')::int when 0 then 'ok'
+        coalesce((risk_counts ->> 'MEDIUM')::int, 0) when 0 then 'ok'
         else 'alert'
       end as type
     from
       aws_wellarchitected_workload
     where
       workload_arn = $1;
+  EOQ
+}
+
+query "wellarchitected_workload_none_risks_count" {
+  sql = <<-EOQ
+    select
+      'No Improvements' as label,
+      coalesce((risk_counts ->> 'NONE')::int, 0) as value
+    from
+      aws_wellarchitected_workload
+    where
+      workload_arn = $1;
+  EOQ
+}
+
+query "wellarchitected_workload_not_applicable_risks_count" {
+  sql = <<-EOQ
+    select
+      'N/A' as label,
+      coalesce((risk_counts ->> 'NOT_APPLICABLE')::int, 0) as value
+    from
+      aws_wellarchitected_workload
+    where
+      workload_arn = $1;
+  EOQ
+}
+
+query "wellarchitected_workload_answered_question_count" {
+  sql = <<-EOQ
+    with question_counts as (
+      select
+        coalesce((risk_counts ->> 'UNANSWERED')::int, 0) as unanswered_questions,
+        coalesce((risk_counts ->> 'HIGH')::int, 0) + coalesce((risk_counts ->> 'MEDIUM')::int, 0) + coalesce((risk_counts ->> 'NONE')::int, 0) + coalesce((risk_counts ->> 'NOT_APPLICABLE')::int, 0) as answered_questions
+      from
+        aws_wellarchitected_workload
+      where
+        workload_arn = $1
+    )
+    select
+      'Answered Questions' as label,
+      answered_questions || '/' || unanswered_questions + answered_questions || ' (' || ((unanswered_questions + answered_questions)/answered_questions)::numeric || '%)' as value,
+      case
+        when unanswered_questions = 0 then 'ok'
+        else 'alert'
+      end as type
+    from
+      question_counts
   EOQ
 }
 
