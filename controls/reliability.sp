@@ -61,6 +61,7 @@ benchmark "reliability_6" {
   title       = "REL 6: How do you monitor workload resources?"
   description = "Logs and metrics are powerful tools to gain insight into the health of your workload. You can configure your workload to monitor logs and metrics and send notifications when thresholds are crossed or significant events occur. Monitoring enables your workload to recognize when low-performance thresholds are crossed or failures occur, so it can recover automatically in response."
   children = [
+    aws_compliance.control.apigateway_rest_api_stage_xray_tracing_enabled,
     aws_compliance.control.apigateway_stage_logging_enabled,
     aws_compliance.control.autoscaling_group_with_lb_use_health_check,
     aws_compliance.control.cloudtrail_multi_region_trail_enabled,
@@ -81,7 +82,6 @@ benchmark "reliability_6" {
     aws_compliance.control.securityhub_enabled,
     aws_compliance.control.vpc_flow_logs_enabled,
     aws_compliance.control.wafv2_web_acl_logging_enabled,
-    control.apigateway_rest_api_stage_xray_tracing_enabled,
     control.ecs_cluster_container_insights_enabled
   ]
 
@@ -147,8 +147,8 @@ benchmark "reliability_9" {
     aws_compliance.control.redshift_cluster_automatic_snapshots_min_7_days,
     aws_compliance.control.redshift_cluster_kms_enabled,
     aws_compliance.control.s3_bucket_cross_region_replication_enabled,
-    aws_compliance.control.s3_bucket_default_encryption_enabled_kms,
     aws_compliance.control.s3_bucket_default_encryption_enabled,
+    aws_compliance.control.s3_bucket_default_encryption_enabled_kms,
     aws_compliance.control.s3_bucket_object_lock_enabled,
     aws_compliance.control.s3_bucket_versioning_enabled
   ]
