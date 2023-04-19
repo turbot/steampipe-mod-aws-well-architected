@@ -4,7 +4,7 @@ repository: "https://github.com/turbot/steampipe-mod-aws-well-architected"
 
 # AWS Well-Architected Mod
 
-Run controls across all of your AWS accounts to check if they are following AWS Well-Architected Framework best practices using Steampipe.
+Run controls across all of your AWS accounts to check if they are following AWS Well-Architected Framework best practices.
 
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_dashboard.png" width="50%" type="thumbnail"/>
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_reliability_pillar_dashboard.png" width="50%" type="thumbnail"/>
