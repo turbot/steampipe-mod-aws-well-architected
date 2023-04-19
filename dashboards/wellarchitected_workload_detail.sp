@@ -233,7 +233,10 @@ query "wellarchitected_workload_answered_question_count" {
     )
     select
       'Answered Questions' as label,
-      answered_questions || '/' || unanswered_questions + answered_questions || ' (' || ((unanswered_questions + answered_questions)/answered_questions)::numeric || '%)' as value,
+      case
+        when answered_questions = 0 then '0/' || unanswered_questions || ' (0%)'
+        else answered_questions || '/' || unanswered_questions + answered_questions || ' (' || ((unanswered_questions + answered_questions)/answered_questions)::numeric || '%)'
+      end as value,
       case
         when unanswered_questions = 0 then 'ok'
         else 'alert'
