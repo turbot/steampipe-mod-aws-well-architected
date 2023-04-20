@@ -4,7 +4,6 @@ locals {
   })
 }
 
-
 control "ecs_task_definition_non_root_user" {
   title       = "ECS task definitions should not use root user to run EC2 launch type containers"
   description = "This control checks if ECS Task Definitions specify a user for Elastic Container Service (ECS) EC2 launch type containers to run on. The rule is non compliant if the 'user' parameter is not present or set to 'root'."
