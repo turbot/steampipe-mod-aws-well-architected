@@ -558,51 +558,20 @@ query "wellarchitected_workload_milestones_risk_counts" {
       select
         workload_id,
         milestone_number,
-        milestone_name
+        milestone_name,
+        recorded_at
       from
         aws_wellarchitected_milestone
       where
         workload_id = $1
-    ), lens_review as (
-      select
-        *
-      from
-        aws_wellarchitected_lens_review
-      where
-        milestone_number in (select milestone_number from aws_wellarchitected_milestone where workload_id = 'f9eec851ac1d8d9d5b9938615da016ce' union select 0 milestone_number)
-    ) select
-      milestone_number,
-      sum((risk_counts ->> 'HIGH')::int) as high_risks,
-      sum((risk_counts ->> 'MEDIUM')::int) as medium_risks,
-      sum((risk_counts ->> 'NONE')::int) as none_risks,
-      sum((risk_counts ->> 'NOT_APPLICABLE')::int) as not_applicable_risks
-      --sum((risk_counts ->> 'UNANSWERED')::int) as unanswered_risks
-    from
-      lens_review as r
-    where
-      workload_id = (select workload_id from aws_wellarchitected_workload where workload_id = 'f9eec851ac1d8d9d5b9938615da016ce')
-      --and r.lens_arn = any(string_to_array($2, ','))
-    group by
-      r.milestone_number
-    order by
-      r.milestone_number
-  EOQ
 
-  param "workload_id" {}
-  // param "lens_arn" {}
-}
+      union
 
-query "wellarchitected_workload_milestones_risk_detail" {
-  sql = <<-EOQ
-    with milestone_info as (
       select
-        workload_id,
-        milestone_number,
-        milestone_name
-      from
-        aws_wellarchitected_milestone
-      where
-        workload_id = $1
+        $1 as workload_id,
+        0 as milestone_number,
+        'current' as milestone_name,
+        current_timestamp recorded_at
     ), lens_review as (
       select
         *
@@ -610,27 +579,35 @@ query "wellarchitected_workload_milestones_risk_detail" {
         aws_wellarchitected_lens_review
       where
         milestone_number in (select milestone_number from aws_wellarchitected_milestone where workload_id = $1 union select 0 milestone_number)
-      union
+        and workload_id = (select workload_id from aws_wellarchitected_workload where workload_id = $1)
+    ), risk_data as (
       select
-        *
+        milestone_number,
+        sum((risk_counts ->> 'HIGH')::int) as high_risks,
+        sum((risk_counts ->> 'MEDIUM')::int) as medium_risks,
+        sum((risk_counts ->> 'NONE')::int) as none_risks,
+        sum((risk_counts ->> 'NOT_APPLICABLE')::int) as not_applicable_risks
+        --sum((risk_counts ->> 'UNANSWERED')::int) as unanswered_risks
       from
-        aws_wellarchitected_lens_review
+        lens_review as r
+      where
+        r.lens_arn = any(string_to_array($2, ','))
+      group by
+        r.milestone_number
+      order by
+        r.milestone_number
     ) select
-      milestone_number as "Milestone Number",
-      sum((risk_counts ->> 'HIGH')::int) as "High Risks",
-      sum((risk_counts ->> 'MEDIUM')::int) as "Medium Risks",
-      sum((risk_counts ->> 'NONE')::int) as "None Risks",
-      sum((risk_counts ->> 'NOT_APPLICABLE')::int) as "Not Applicable Risks"
-      --sum((risk_counts ->> 'UNANSWERED')::int) as "Unanswered Risks"
+      m.milestone_name,
+      r.high_risks,
+      r.medium_risks,
+      r.none_risks,
+      r.not_applicable_risks
     from
-      lens_review as r
-    where
-      workload_id = (select workload_id from aws_wellarchitected_workload where workload_id = $1)
-      and r.lens_arn = any(string_to_array($2, ','))
-    group by
-      r.milestone_number
+      risk_data r 
+      left join milestone_info m
+        on r.milestone_number = m.milestone_number
     order by
-      r.milestone_number
+      recorded_at;
   EOQ
 
   param "workload_id" {}
@@ -643,11 +620,20 @@ query "wellarchitected_workload_milestones_unanswered_count" {
       select
         workload_id,
         milestone_number,
-        milestone_name
+        milestone_name,
+        recorded_at
       from
         aws_wellarchitected_milestone
       where
         workload_id = $1
+
+      union
+
+      select
+        $1 as workload_id,
+        0 as milestone_number,
+        'current' as milestone_name,
+        current_timestamp recorded_at
     ), lens_review as (
       select
         *
@@ -655,18 +641,89 @@ query "wellarchitected_workload_milestones_unanswered_count" {
         aws_wellarchitected_lens_review
       where
         milestone_number in (select milestone_number from aws_wellarchitected_milestone where workload_id = $1 union select 0 milestone_number)
+        and workload_id = (select workload_id from aws_wellarchitected_workload where workload_id = $1)
+    ), risk_data as (
+      select
+        milestone_number,
+        sum((risk_counts ->> 'UNANSWERED')::int) as unanswered_risks
+      from
+        lens_review as r
+      where
+        r.lens_arn = any(string_to_array($2, ','))
+      group by
+        r.milestone_number
+      order by
+        r.milestone_number
     ) select
-      milestone_number,
-      sum((risk_counts ->> 'UNANSWERED')::int) as unanswered_risks
+      m.milestone_name,
+      r.unanswered_risks
     from
-      lens_review as r
-    where
-      workload_id = (select workload_id from aws_wellarchitected_workload where workload_id = $1)
-      and r.lens_arn = any(string_to_array($2, ','))
-    group by
-      r.milestone_number
+      risk_data r 
+      left join milestone_info m
+        on r.milestone_number = m.milestone_number
     order by
-      r.milestone_number
+      recorded_at;
+  EOQ
+
+  param "workload_id" {}
+  param "lens_arn" {}
+}
+
+query "wellarchitected_workload_milestones_risk_detail" {
+  sql = <<-EOQ
+    with milestone_info as (
+      select
+        workload_id,
+        milestone_number,
+        milestone_name,
+        recorded_at
+      from
+        aws_wellarchitected_milestone
+      where
+        workload_id = $1
+
+      union
+
+      select
+        $1 as workload_id,
+        0 as milestone_number,
+        'current' as milestone_name,
+        current_timestamp recorded_at
+    ), lens_review as (
+      select
+        *
+      from
+        aws_wellarchitected_lens_review
+      where
+        milestone_number in (select milestone_number from aws_wellarchitected_milestone where workload_id = $1 union select 0 milestone_number)
+        and workload_id = (select workload_id from aws_wellarchitected_workload where workload_id = $1)
+    ), risk_data as (
+      select
+        milestone_number,
+        sum((risk_counts ->> 'HIGH')::int) as high_risks,
+        sum((risk_counts ->> 'MEDIUM')::int) as medium_risks,
+        sum((risk_counts ->> 'NONE')::int) as none_risks,
+        sum((risk_counts ->> 'NOT_APPLICABLE')::int) as not_applicable_risks
+      from
+        lens_review as r
+      where
+        r.lens_arn = any(string_to_array($2, ','))
+      group by
+        r.milestone_number
+      order by
+        r.milestone_number
+    ) select
+      m.milestone_name  as "Milestone Number",
+      r.high_risks  as "High Risks",
+      r.medium_risks as "Medium Risks",
+      r.none_risks as "None Risks",
+      r.not_applicable_risks as "Not Applicable Risks"
+    from
+      risk_data r 
+      left join milestone_info m
+        on r.milestone_number = m.milestone_number
+    order by
+      recorded_at;
   EOQ
 
   param "workload_id" {}
