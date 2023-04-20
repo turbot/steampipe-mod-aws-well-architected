@@ -554,15 +554,17 @@ query "wellarchitected_workload_milestones_risk_counts" {
         aws_wellarchitected_lens_review
     ) select
       milestone_number,
-      (risk_counts ->> 'HIGH')::int as high_risks,
-      (risk_counts ->> 'MEDIUM')::int as medium_risks,
-      (risk_counts ->> 'NONE')::int as none_risks,
-      (risk_counts ->> 'NOT_APPLICABLE')::int as not_applicable_risks
-      --(risk_counts ->> 'UNANSWERED')::int as unanswered_risks
+      sum((risk_counts ->> 'HIGH')::int) as high_risks,
+      sum((risk_counts ->> 'MEDIUM')::int) as medium_risks,
+      sum((risk_counts ->> 'NONE')::int) as none_risks,
+      sum((risk_counts ->> 'NOT_APPLICABLE')::int) as not_applicable_risks
+      --sum((risk_counts ->> 'UNANSWERED')::int) as unanswered_risks
     from
       lens_review as r
     where
       workload_id = (select workload_id from aws_wellarchitected_workload where workload_id = 'f9eec851ac1d8d9d5b9938615da016ce')
+    group by
+      r.milestone_number
     order by
       r.milestone_number
   EOQ
