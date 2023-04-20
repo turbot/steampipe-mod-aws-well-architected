@@ -59,8 +59,8 @@ dashboard "wellarchitected_workload_detail" {
   container {
 
     chart {
-      type     = "column"
       title    = "Risk Counts by Lens"
+      type     = "column"
       grouping = "compare"
       width    = 4
 
@@ -91,9 +91,6 @@ dashboard "wellarchitected_workload_detail" {
 
       axes {
         x {
-          //title {
-          //  value  = "Lens"
-          //}
           labels {
             display = "always"
           }
@@ -108,8 +105,8 @@ dashboard "wellarchitected_workload_detail" {
     }
 
     chart {
-      type     = "column"
       title    = "Risk Counts by Pillars"
+      type     = "column"
       grouping = "compare"
       width    = 4
 
@@ -140,9 +137,6 @@ dashboard "wellarchitected_workload_detail" {
 
       axes {
         x {
-          //title {
-          //  value  = "Pillar"
-          //}
           labels {
             display = "always"
           }
@@ -157,10 +151,8 @@ dashboard "wellarchitected_workload_detail" {
     }
 
     chart {
-      // type     = "area"
-      // grouping = "stack"
-      type     = "line"
       title    = "Risk Counts by Milestone"
+      type     = "line"
       grouping = "compare"
       width    = 4
 
@@ -191,9 +183,6 @@ dashboard "wellarchitected_workload_detail" {
 
       axes {
         x {
-          //title {
-          //  value  = "Pillar"
-          //}
           labels {
             display = "always"
           }
@@ -203,7 +192,33 @@ dashboard "wellarchitected_workload_detail" {
       query = query.wellarchitected_workload_milestones_risk_counts
       args = {
         workload_id = self.input.workload_id.value
-        // lens_arn     = self.input.lens_arn.value
+        lens_arn    = self.input.lens_arn.value
+      }
+    }
+
+    chart {
+      title    = "Unanswered Risk Count by Milestone"
+      type     = "line"
+      grouping = "compare"
+      width    = 4
+
+      series "unanswered_risks" {
+        title = "Unanswered"
+        color = "gray"
+      }
+
+      axes {
+        x {
+          labels {
+            display = "always"
+          }
+        }
+      }
+
+      query = query.wellarchitected_workload_milestones_unanswered_count
+      args = {
+        workload_id = self.input.workload_id.value
+        lens_arn    = self.input.lens_arn.value
       }
     }
 
@@ -213,23 +228,33 @@ dashboard "wellarchitected_workload_detail" {
     container {
 
       table {
-        title = "Risk Counts by lens"
+        title = "Risk Counts by Lens"
         width = 6
-        query = query.workload_lens_risk_counts
+        query = query.wellarchitected_workload_lens_risk_detail
         args = {
-        workload_id = self.input.workload_id.value
-        lens_arn    = self.input.lens_arn.value
-      }
+          workload_id = self.input.workload_id.value
+          lens_arn    = self.input.lens_arn.value
+        }
       }
 
       table {
-        title = "Risk Counts by pillar"
+        title = "Risk Counts by Pillar"
         width = 6
-        query = query.workload_pillar_risk_counts
+        query = query.wellarchitected_workload_pillar_risk_detail
         args = {
-        workload_id = self.input.workload_id.value
-        lens_arn    = self.input.lens_arn.value
+          workload_id = self.input.workload_id.value
+          lens_arn    = self.input.lens_arn.value
+        }
       }
+
+      table {
+        title = "Risk Counts by Milestone"
+        width = 6
+        query = query.wellarchitected_workload_milestones_risk_detail
+        args = {
+          workload_id = self.input.workload_id.value
+          lens_arn    = self.input.lens_arn.value
+        }
       }
 
     }
@@ -383,7 +408,7 @@ query "wellarchitected_workload_lens_risk_counts" {
   param "lens_arn" {}
 }
 
-query "workload_lens_risk_counts" {
+query "wellarchitected_workload_lens_risk_detail" {
   sql = <<-EOQ
     select
       r.lens_name as "Lens Name",
@@ -433,7 +458,7 @@ query "wellarchitected_workload_pillar_risk_counts" {
   param "lens_arn" {}
 }
 
-query "workload_pillar_risk_counts" {
+query "wellarchitected_workload_pillar_risk_detail" {
   sql = <<-EOQ
     select
       p ->> 'PillarName' as "Pillar Name",
@@ -544,14 +569,7 @@ query "wellarchitected_workload_milestones_risk_counts" {
       from
         aws_wellarchitected_lens_review
       where
-        milestone_number in (select milestone_number from aws_wellarchitected_milestone where workload_id = 'f9eec851ac1d8d9d5b9938615da016ce')
-
-      union
-
-      select
-        *
-      from
-        aws_wellarchitected_lens_review
+        milestone_number in (select milestone_number from aws_wellarchitected_milestone where workload_id = 'f9eec851ac1d8d9d5b9938615da016ce' union select 0 milestone_number)
     ) select
       milestone_number,
       sum((risk_counts ->> 'HIGH')::int) as high_risks,
@@ -563,6 +581,7 @@ query "wellarchitected_workload_milestones_risk_counts" {
       lens_review as r
     where
       workload_id = (select workload_id from aws_wellarchitected_workload where workload_id = 'f9eec851ac1d8d9d5b9938615da016ce')
+      --and r.lens_arn = any(string_to_array($2, ','))
     group by
       r.milestone_number
     order by
@@ -571,4 +590,85 @@ query "wellarchitected_workload_milestones_risk_counts" {
 
   param "workload_id" {}
   // param "lens_arn" {}
+}
+
+query "wellarchitected_workload_milestones_risk_detail" {
+  sql = <<-EOQ
+    with milestone_info as (
+      select
+        workload_id,
+        milestone_number,
+        milestone_name
+      from
+        aws_wellarchitected_milestone
+      where
+        workload_id = $1
+    ), lens_review as (
+      select
+        *
+      from
+        aws_wellarchitected_lens_review
+      where
+        milestone_number in (select milestone_number from aws_wellarchitected_milestone where workload_id = $1 union select 0 milestone_number)
+      union
+      select
+        *
+      from
+        aws_wellarchitected_lens_review
+    ) select
+      milestone_number as "Milestone Number",
+      sum((risk_counts ->> 'HIGH')::int) as "High Risks",
+      sum((risk_counts ->> 'MEDIUM')::int) as "Medium Risks",
+      sum((risk_counts ->> 'NONE')::int) as "None Risks",
+      sum((risk_counts ->> 'NOT_APPLICABLE')::int) as "Not Applicable Risks"
+      --sum((risk_counts ->> 'UNANSWERED')::int) as "Unanswered Risks"
+    from
+      lens_review as r
+    where
+      workload_id = (select workload_id from aws_wellarchitected_workload where workload_id = $1)
+      and r.lens_arn = any(string_to_array($2, ','))
+    group by
+      r.milestone_number
+    order by
+      r.milestone_number
+  EOQ
+
+  param "workload_id" {}
+  param "lens_arn" {}
+}
+
+query "wellarchitected_workload_milestones_unanswered_count" {
+  sql = <<-EOQ
+    with milestone_info as (
+      select
+        workload_id,
+        milestone_number,
+        milestone_name
+      from
+        aws_wellarchitected_milestone
+      where
+        workload_id = $1
+    ), lens_review as (
+      select
+        *
+      from
+        aws_wellarchitected_lens_review
+      where
+        milestone_number in (select milestone_number from aws_wellarchitected_milestone where workload_id = $1 union select 0 milestone_number)
+    ) select
+      milestone_number,
+      sum((risk_counts ->> 'UNANSWERED')::int) as unanswered_risks
+    from
+      lens_review as r
+    where
+      workload_id = (select workload_id from aws_wellarchitected_workload where workload_id = $1)
+      and r.lens_arn = any(string_to_array($2, ','))
+    group by
+      r.milestone_number
+    order by
+      r.milestone_number
+  EOQ
+
+  param "workload_id" {}
+  param "lens_arn" {}
 }
