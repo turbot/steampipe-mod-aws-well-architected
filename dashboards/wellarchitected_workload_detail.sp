@@ -64,27 +64,27 @@ dashboard "wellarchitected_workload_detail" {
       grouping = "compare"
       width    = 4
 
-      series high_risks {
+      series "high_risks" {
         title = "High Risks"
         color = "red"
       }
 
-      series medium_risks {
+      series "medium_risks" {
         title = "Medium Risks"
         color = "yellow"
       }
 
-      series none_risks {
+      series "none_risks" {
         title = "No Improvements"
         color = "green"
       }
 
-      series not_applicable_risks {
+      series "not_applicable_risks" {
         title = "N/A"
         color = "gray"
       }
 
-      series unanswered_risks {
+      series "unanswered_risks" {
         title = "Unanswered"
         color = "gray"
       }
@@ -113,27 +113,27 @@ dashboard "wellarchitected_workload_detail" {
       grouping = "compare"
       width    = 4
 
-      series high_risks {
+      series "high_risks" {
         title = "High Risks"
         color = "red"
       }
 
-      series medium_risks {
+      series "medium_risks" {
         title = "Medium Risks"
         color = "yellow"
       }
 
-      series none_risks {
+      series "none_risks" {
         title = "No Improvements"
         color = "green"
       }
 
-      series not_applicable_risks {
+      series "not_applicable_risks" {
         title = "N/A"
         color = "gray"
       }
 
-      series unanswered_risks {
+      series "unanswered_risks" {
         title = "Unanswered"
         color = "gray"
       }
@@ -164,27 +164,27 @@ dashboard "wellarchitected_workload_detail" {
       grouping = "compare"
       width    = 4
 
-      series high_risks {
+      series "high_risks" {
         title = "High Risks"
         color = "red"
       }
 
-      series medium_risks {
+      series "medium_risks" {
         title = "Medium Risks"
         color = "yellow"
       }
 
-      series none_risks {
+      series "none_risks" {
         title = "No Improvements"
         color = "green"
       }
 
-      series not_applicable_risks {
+      series "not_applicable_risks" {
         title = "N/A"
         color = "gray"
       }
 
-      series unanswered_risks {
+      series "unanswered_risks" {
         title = "Unanswered"
         color = "gray"
       }
@@ -207,6 +207,32 @@ dashboard "wellarchitected_workload_detail" {
       }
     }
 
+  }
+
+  container {
+    container {
+
+      table {
+        title = "Risk Counts by lens"
+        width = 6
+        query = query.workload_lens_risk_counts
+        args = {
+        workload_id = self.input.workload_id.value
+        lens_arn    = self.input.lens_arn.value
+      }
+      }
+
+      table {
+        title = "Risk Counts by pillar"
+        width = 6
+        query = query.workload_pillar_risk_counts
+        args = {
+        workload_id = self.input.workload_id.value
+        lens_arn    = self.input.lens_arn.value
+      }
+      }
+
+    }
   }
 
 }
@@ -322,7 +348,7 @@ query "wellarchitected_workload_answered_question_count" {
     )
     select
       'Answered Questions' as label,
-      answered_questions || '/' || unanswered_questions + answered_questions || ' (' || ((unanswered_questions + answered_questions)/answered_questions)::numeric || '%)' as value,
+      answered_questions || '/' || unanswered_questions + answered_questions || ' (' || (100 * answered_questions/(unanswered_questions + answered_questions))::numeric || '%)' as value,
       case
         when unanswered_questions = 0 then 'ok'
         else 'alert'
@@ -340,6 +366,31 @@ query "wellarchitected_workload_lens_risk_counts" {
       (r.risk_counts ->> 'MEDIUM')::int as medium_risks,
       (r.risk_counts ->> 'NONE')::int as none_risks,
       (r.risk_counts ->> 'NOT_APPLICABLE')::int as not_applicable_risks
+      --(r.risk_counts ->> 'UNANSWERED')::int as unanswered_risks
+    from
+      aws_wellarchitected_lens_review as r
+    where
+      r.workload_id = $1
+      and r.lens_arn = any(string_to_array($2, ','))
+    group by
+      r.lens_name,
+      r.risk_counts
+    order by
+      r.lens_name
+  EOQ
+
+  param "workload_id" {}
+  param "lens_arn" {}
+}
+
+query "workload_lens_risk_counts" {
+  sql = <<-EOQ
+    select
+      r.lens_name as "Lens Name",
+      (r.risk_counts ->> 'HIGH')::int as "High Risks",
+      (r.risk_counts ->> 'MEDIUM')::int as "Medium Risks",
+      (r.risk_counts ->> 'NONE')::int as "None Risks",
+      (r.risk_counts ->> 'NOT_APPLICABLE')::int as "Not Applicable Risks"
       --(r.risk_counts ->> 'UNANSWERED')::int as unanswered_risks
     from
       aws_wellarchitected_lens_review as r
@@ -376,6 +427,31 @@ query "wellarchitected_workload_pillar_risk_counts" {
       pillar_name
     order by
       pillar_name
+  EOQ
+
+  param "workload_id" {}
+  param "lens_arn" {}
+}
+
+query "workload_pillar_risk_counts" {
+  sql = <<-EOQ
+    select
+      p ->> 'PillarName' as "Pillar Name",
+      sum((p -> 'RiskCounts' ->> 'HIGH')::int) as "High Risks",
+      sum((p -> 'RiskCounts' ->> 'MEDIUM')::int) as "Medium Risks",
+      sum((p -> 'RiskCounts' ->> 'NONE')::int) as "None Risks",
+      sum((p -> 'RiskCounts' ->> 'NOT_APPLICABLE')::int) as "Not Applicable Risks"
+      --sum((p -> 'RiskCounts' ->> 'UNANSWERED')::int) as unanswered_risks
+    from
+      aws_wellarchitected_lens_review as r,
+      jsonb_array_elements(r.pillar_review_summaries) as p
+    where
+      r.workload_id = $1
+      and r.lens_arn = any(string_to_array($2, ','))
+    group by
+      "Pillar Name"
+    order by
+      "Pillar Name"
   EOQ
 
   param "workload_id" {}
