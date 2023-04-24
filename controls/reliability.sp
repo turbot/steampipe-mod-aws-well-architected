@@ -69,6 +69,7 @@ benchmark "reliability_6" {
     aws_compliance.control.cloudtrail_trail_integrated_with_logs,
     aws_compliance.control.cloudwatch_alarm_action_enabled,
     aws_compliance.control.ec2_instance_detailed_monitoring_enabled,
+    aws_compliance.control.ecs_cluster_container_insights_enabled,
     aws_compliance.control.elastic_beanstalk_enhanced_health_reporting_enabled,
     aws_compliance.control.elb_application_classic_lb_logging_enabled,
     aws_compliance.control.es_domain_logs_to_cloudwatch,
@@ -81,8 +82,7 @@ benchmark "reliability_6" {
     aws_compliance.control.s3_bucket_logging_enabled,
     aws_compliance.control.securityhub_enabled,
     aws_compliance.control.vpc_flow_logs_enabled,
-    aws_compliance.control.wafv2_web_acl_logging_enabled,
-    control.ecs_cluster_container_insights_enabled
+    aws_compliance.control.wafv2_web_acl_logging_enabled
   ]
 
   tags = merge(local.reliability_common_tags, {
@@ -147,8 +147,8 @@ benchmark "reliability_9" {
     aws_compliance.control.redshift_cluster_automatic_snapshots_min_7_days,
     aws_compliance.control.redshift_cluster_kms_enabled,
     aws_compliance.control.s3_bucket_cross_region_replication_enabled,
-    aws_compliance.control.s3_bucket_default_encryption_enabled,
     aws_compliance.control.s3_bucket_default_encryption_enabled_kms,
+    aws_compliance.control.s3_bucket_default_encryption_enabled,
     aws_compliance.control.s3_bucket_object_lock_enabled,
     aws_compliance.control.s3_bucket_versioning_enabled
   ]
@@ -163,15 +163,15 @@ benchmark "reliability_10" {
   description = "Fault isolated boundaries limit the effect of a failure within a workload to a limited number of components. Components outside of the boundary are unaffected by the failure. Using multiple fault isolated boundaries, you can limit the impact on your workload."
   children = [
     aws_compliance.control.dynamodb_table_auto_scaling_enabled,
+    aws_compliance.control.elb_application_gateway_network_lb_multiple_az_configured,
     aws_compliance.control.elb_application_lb_deletion_protection_enabled,
     aws_compliance.control.elb_classic_lb_cross_zone_load_balancing_enabled,
+    aws_compliance.control.elb_classic_lb_multiple_az_configured,
+    aws_compliance.control.lambda_function_multiple_az_configured,
     aws_compliance.control.rds_db_instance_deletion_protection_enabled,
     aws_compliance.control.rds_db_instance_multiple_az_enabled,
     aws_compliance.control.s3_bucket_object_lock_enabled,
     aws_compliance.control.vpc_vpn_tunnel_up,
-    control.elb_application_gateway_network_lb_multiple_az_configured,
-    control.elb_classic_lb_multiple_az_configured,
-    control.lambda_function_multiple_az_configured,
     control.opensearch_domain_data_node_fault_tolerance
   ]
 

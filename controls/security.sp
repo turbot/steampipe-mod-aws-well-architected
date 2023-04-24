@@ -88,6 +88,7 @@ benchmark "security_3" {
     aws_compliance.control.ec2_instance_in_vpc,
     aws_compliance.control.ec2_instance_not_publicly_accessible,
     aws_compliance.control.ec2_instance_uses_imdsv2,
+    aws_compliance.control.ecs_task_definition_container_readonly_root_filesystem,
     aws_compliance.control.ecs_task_definition_user_for_host_mode_check,
     aws_compliance.control.emr_cluster_kerberos_enabled,
     aws_compliance.control.emr_cluster_master_nodes_no_public_ip,
@@ -113,8 +114,6 @@ benchmark "security_3" {
     aws_compliance.control.sagemaker_notebook_instance_direct_internet_access_disabled,
     aws_compliance.control.secretsmanager_secret_unused_90_day,
     aws_compliance.control.vpc_subnet_auto_assign_public_ip_disabled,
-    control.ecs_task_definition_container_non_privileged,
-    control.ecs_task_definition_container_readonly_root_filesystem,
     control.ecs_task_definition_non_root_user,
     control.efs_access_point_enforces_user_identity
   ]
@@ -163,12 +162,17 @@ benchmark "security_5" {
     aws_compliance.control.ebs_snapshot_not_publicly_restorable,
     aws_compliance.control.ec2_instance_in_vpc,
     aws_compliance.control.ec2_instance_not_publicly_accessible,
+    aws_compliance.control.ec2_instance_not_use_multiple_enis,
     aws_compliance.control.elb_application_lb_waf_enabled,
     aws_compliance.control.emr_cluster_master_nodes_no_public_ip,
     aws_compliance.control.es_domain_in_vpc,
     aws_compliance.control.guardduty_enabled,
     aws_compliance.control.lambda_function_in_vpc,
     aws_compliance.control.lambda_function_restrict_public_access,
+    aws_compliance.control.networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets,
+    aws_compliance.control.networkfirewall_firewall_policy_default_stateless_action_check_full_packets,
+    aws_compliance.control.networkfirewall_firewall_policy_rule_group_not_empty,
+    aws_compliance.control.networkfirewall_stateless_rule_group_not_empty,
     aws_compliance.control.opensearch_domain_in_vpc,
     aws_compliance.control.rds_db_instance_prohibit_public_access,
     aws_compliance.control.rds_db_snapshot_prohibit_public_access,
@@ -190,14 +194,9 @@ benchmark "security_5" {
     aws_compliance.control.vpc_security_group_restricted_common_ports,
     aws_compliance.control.vpc_subnet_auto_assign_public_ip_disabled,
     aws_compliance.control.waf_regional_rule_condition_attached,
+    aws_compliance.control.waf_regional_rule_group_rule_attached,
+    aws_compliance.control.waf_regional_web_acl_rule_attached,
     aws_compliance.control.waf_web_acl_resource_associated,
-    control.ec2_instance_not_use_multiple_enis,
-    control.networkfirewall_firewall_policy_default_stateless_action_check_fragmented_packets,
-    control.networkfirewall_firewall_policy_default_stateless_action_check_full_packets,
-    control.networkfirewall_firewall_policy_rule_group_not_empty,
-    control.networkfirewall_stateless_rule_group_not_empty,
-    control.waf_regional_rule_group_rule_attached,
-    control.waf_regional_web_acl_rule_attached
   ]
 
   tags = merge(local.security_common_tags, {
@@ -215,25 +214,25 @@ benchmark "security_6" {
     aws_compliance.control.ebs_attached_volume_encryption_enabled,
     aws_compliance.control.ec2_instance_iam_profile_attached,
     aws_compliance.control.ec2_instance_not_publicly_accessible,
+    aws_compliance.control.ec2_instance_not_use_multiple_enis,
     aws_compliance.control.ec2_instance_ssm_managed,
     aws_compliance.control.ec2_instance_uses_imdsv2,
     aws_compliance.control.ec2_stopped_instance_30_days,
     aws_compliance.control.ecr_repository_image_scan_on_push_enabled,
+    aws_compliance.control.ecs_cluster_container_insights_enabled,
+    aws_compliance.control.ecs_service_fargate_using_latest_platform_version,
     aws_compliance.control.emr_cluster_master_nodes_no_public_ip,
     aws_compliance.control.lambda_function_concurrent_execution_limit_configured,
     aws_compliance.control.lambda_function_dead_letter_queue_configured,
     aws_compliance.control.lambda_function_in_vpc,
+    aws_compliance.control.lambda_function_multiple_az_configured,
     aws_compliance.control.lambda_function_restrict_public_access,
+    aws_compliance.control.lambda_function_use_latest_runtime,
     aws_compliance.control.rds_db_instance_automatic_minor_version_upgrade_enabled,
     aws_compliance.control.redshift_cluster_maintenance_settings_check,
     aws_compliance.control.ssm_managed_instance_compliance_association_compliant,
     aws_compliance.control.ssm_managed_instance_compliance_patch_compliant,
-    aws_compliance.control.vpc_security_group_associated_to_eni,
-    control.ec2_instance_not_use_multiple_enis,
-    control.ecs_cluster_container_insights_enabled,
-    control.ecs_service_fargate_using_latest_platform_version,
-    control.lambda_function_multiple_az_configured,
-    control.lambda_function_use_latest_runtime
+    aws_compliance.control.vpc_security_group_associated_to_eni
   ]
 
   tags = merge(local.security_common_tags, {
