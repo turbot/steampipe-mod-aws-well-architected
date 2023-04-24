@@ -1,3 +1,9 @@
+## v0.5 [2023-04-24]
+
+_Dependencies_
+
+- AWS Compliance mod `v0.63` or higher is now required. ([#9](https://github.com/turbot/steampipe-mod-aws-well-architected/pull/9))
+
 ## v0.4 [2023-04-19]
 
 _Bug fixes_
