@@ -33,7 +33,7 @@ git clone https://github.com/turbot/steampipe-mod-aws-well-architected.git
 cd steampipe-mod-aws-well-architected
 ```
 
-Install all dependent mods:
+Install mod dependencies:
 
 ```sh
 steampipe mod install
@@ -98,14 +98,12 @@ The benchmark queries use common properties (like `account_id`, `connection_name
 - Pass in a value on the command line:
 
   ```shell
-  steampipe check benchmark.security --var 'aws_compliance.common_dimensions=["account_id", "connection_name", "region"]'
+  steampipe check benchmark.security --var 'common_dimensions=["account_id", "connection_name", "region"]'
   ```
 
   ```shell
-  steampipe check benchmark.security --var 'aws_compliance.tag_dimensions=["Environment", "Owner"]'
+  steampipe check benchmark.security --var 'tag_dimensions=["Environment", "Owner"]'
   ```
-
-For other ways to pass variables for dependency mods, please see [Passing Variables for Dependency Mods](https://steampipe.io/docs/mods/mod-variables#passing-variables-for-dependency-mods).
 
 ## Contributing
 

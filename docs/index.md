@@ -4,7 +4,7 @@ repository: "https://github.com/turbot/steampipe-mod-aws-well-architected"
 
 # AWS Well-Architected Mod
 
-Run controls across all of your AWS accounts to check if they are following AWS Well-Architected Framework best practices using Steampipe.
+Run controls across all of your AWS accounts to check if they are following AWS Well-Architected Framework best practices.
 
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_dashboard.png" width="50%" type="thumbnail"/>
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_reliability_pillar_dashboard.png" width="50%" type="thumbnail"/>
@@ -49,7 +49,7 @@ git clone https://github.com/turbot/steampipe-mod-aws-well-architected.git
 cd steampipe-mod-aws-well-architected
 ```
 
-Install all dependent mods:
+Install mod dependencies:
 
 ```sh
 steampipe mod install
@@ -120,14 +120,12 @@ The benchmark queries use common properties (like `account_id`, `connection_name
 - Pass in a value on the command line:
 
   ```shell
-  steampipe check benchmark.security --var 'aws_compliance.common_dimensions=["account_id", "connection_name", "region"]'
+  steampipe check benchmark.security --var 'common_dimensions=["account_id", "connection_name", "region"]'
   ```
 
   ```shell
-  steampipe check benchmark.security --var 'aws_compliance.tag_dimensions=["Environment", "Owner"]'
+  steampipe check benchmark.security --var 'tag_dimensions=["Environment", "Owner"]'
   ```
-
-  For more info refer [Passing Variables for Dependency Mods](https://steampipe.io/docs/mods/mod-variables#passing-variables-for-dependency-mods)
 
 ## Contributing
 
