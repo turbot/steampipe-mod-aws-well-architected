@@ -47,7 +47,7 @@ dashboard "wellarchitected_workload_dashboard" {
   container {
 
     table {
-      width = 6
+      width = 12
       title = "Risk Counts"
       query = query.wellarchitected_workload_risk_counts
     }

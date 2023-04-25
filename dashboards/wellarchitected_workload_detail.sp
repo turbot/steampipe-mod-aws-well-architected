@@ -297,6 +297,7 @@ query "wellarchitected_lens_input" {
       jsonb_array_elements_text(w.lenses) la
     where
       (la = l.lens_alias or la = l.arn)
+      and l.account_id = w.account_id
       and l.region = w.region
       and w.workload_id = $1
     order by
@@ -569,16 +570,16 @@ query "wellarchitected_workload_milestones_risk_counts" {
 
       select
         $1 as workload_id,
-        0 as milestone_number,
+        0 as milestone_number, -- Lens review API returns current milestone as 0
         'current' as milestone_name,
-        current_timestamp recorded_at
+        current_timestamp as recorded_at
     ), lens_review as (
       select
         *
       from
         aws_wellarchitected_lens_review
       where
-        milestone_number in (select milestone_number from aws_wellarchitected_milestone where workload_id = $1 union select 0 milestone_number)
+        milestone_number in (select milestone_number from aws_wellarchitected_milestone where workload_id = $1 union select 0 as milestone_number) -- Current milestone is returned as 0
         and workload_id = (select workload_id from aws_wellarchitected_workload where workload_id = $1)
     ), risk_data as (
       select
@@ -603,7 +604,7 @@ query "wellarchitected_workload_milestones_risk_counts" {
       r.none_risks,
       r.not_applicable_risks
     from
-      risk_data r 
+      risk_data r
       left join milestone_info m
         on r.milestone_number = m.milestone_number
     order by
@@ -631,16 +632,16 @@ query "wellarchitected_workload_milestones_unanswered_count" {
 
       select
         $1 as workload_id,
-        0 as milestone_number,
+        0 as milestone_number, -- Lens review API returns current milestone as 0
         'current' as milestone_name,
-        current_timestamp recorded_at
+        current_timestamp as recorded_at
     ), lens_review as (
       select
         *
       from
         aws_wellarchitected_lens_review
       where
-        milestone_number in (select milestone_number from aws_wellarchitected_milestone where workload_id = $1 union select 0 milestone_number)
+        milestone_number in (select milestone_number from aws_wellarchitected_milestone where workload_id = $1 union select 0 as milestone_number) -- Current milestone is returned as 0
         and workload_id = (select workload_id from aws_wellarchitected_workload where workload_id = $1)
     ), risk_data as (
       select
@@ -658,7 +659,7 @@ query "wellarchitected_workload_milestones_unanswered_count" {
       m.milestone_name,
       r.unanswered_risks
     from
-      risk_data r 
+      risk_data r
       left join milestone_info m
         on r.milestone_number = m.milestone_number
     order by
@@ -686,16 +687,16 @@ query "wellarchitected_workload_milestones_risk_detail" {
 
       select
         $1 as workload_id,
-        0 as milestone_number,
+        0 as milestone_number, -- Lens review API returns current milestone as 0
         'current' as milestone_name,
-        current_timestamp recorded_at
+        current_timestamp as recorded_at
     ), lens_review as (
       select
         *
       from
         aws_wellarchitected_lens_review
       where
-        milestone_number in (select milestone_number from aws_wellarchitected_milestone where workload_id = $1 union select 0 milestone_number)
+        milestone_number in (select milestone_number from aws_wellarchitected_milestone where workload_id = $1 union select 0 as milestone_number) -- Current milestone is returned as 0
         and workload_id = (select workload_id from aws_wellarchitected_workload where workload_id = $1)
     ), risk_data as (
       select
@@ -713,17 +714,24 @@ query "wellarchitected_workload_milestones_risk_detail" {
       order by
         r.milestone_number
     ) select
-      m.milestone_name  as "Milestone Number",
+      case
+        when m.milestone_number = 0 then null -- Instead of showing milestone number as 0 for latest, show null to avoid confusion
+        else m.milestone_number
+      end as "Milestone Number",
+      case
+        when m.milestone_number = 0 then 'current'
+        else m.milestone_name
+      end as "Milestone Name",
       r.high_risks  as "High Risks",
       r.medium_risks as "Medium Risks",
       r.none_risks as "None Risks",
       r.not_applicable_risks as "Not Applicable Risks"
     from
-      risk_data r 
+      risk_data r
       left join milestone_info m
         on r.milestone_number = m.milestone_number
     order by
-      recorded_at;
+      recorded_at desc;
   EOQ
 
   param "workload_id" {}
