@@ -1,3 +1,9 @@
+## v0.6
+
+_Bug fixes_
+
+- Fixed dashboard localhost URLs in README and index doc. ([#15](https://github.com/turbot/steampipe-mod-aws-well-architected/pull/15))
+
 ## v0.5 [2023-04-24]
 
 _Dependencies_
