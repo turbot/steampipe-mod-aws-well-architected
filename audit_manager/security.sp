@@ -1,30 +1,28 @@
 locals {
-  security_common_tags = merge(local.aws_well_architected_common_tags, {
-    benchmark = "security"
+  audit_manager_security_common_tags = merge(local.audit_manager_common_tags, {
+    pillar = "security"
   })
 }
 
-benchmark "security" {
+benchmark "audit_manager_security" {
   title       = "Security Pillar"
   description = "The security pillar focuses on protecting information and systems. Key topics include confidentiality and integrity of data, managing user permissions, and establishing controls to detect security events."
   children = [
-    benchmark.security_1,
-    benchmark.security_2,
-    benchmark.security_3,
-    benchmark.security_4,
-    benchmark.security_5,
-    benchmark.security_6,
-    benchmark.security_7,
-    benchmark.security_8,
-    benchmark.security_9
+    benchmark.audit_manager_security_1,
+    benchmark.audit_manager_security_2,
+    benchmark.audit_manager_security_3,
+    benchmark.audit_manager_security_4,
+    benchmark.audit_manager_security_5,
+    benchmark.audit_manager_security_6,
+    benchmark.audit_manager_security_7,
+    benchmark.audit_manager_security_8,
+    benchmark.audit_manager_security_9
   ]
 
-  tags = merge(local.security_common_tags, {
-    type = "Benchmark"
-  })
+  tags = local.audit_manager_security_common_tags
 }
 
-benchmark "security_1" {
+benchmark "audit_manager_security_1" {
   title       = "SEC 1: How do you securely operate your workload?"
   description = "To operate your workload securely, you must apply overarching best practices to every area of security. Take requirements and processes that you have defined in operational excellence at an organizational and workload level, and apply them to all areas. Staying up to date with AWS and industry recommendations and threat intelligence helps you evolve your threat model and control objectives. Automating security processes, testing, and validation allow you to scale your security operations."
   children = [
@@ -40,12 +38,10 @@ benchmark "security_1" {
     aws_compliance.control.ssm_managed_instance_compliance_patch_compliant
   ]
 
-  tags = merge(local.security_common_tags, {
-    type = "Benchmark"
-  })
+  tags = local.audit_manager_security_common_tags
 }
 
-benchmark "security_2" {
+benchmark "audit_manager_security_2" {
   title       = "SEC 2: How do you manage identities for people and machines?"
   description = "There are two types of identities you need to manage when approaching operating secure AWS workloads. Understanding the type of identity you need to manage and grant access helps you ensure the right identities have access to the right resources under the right conditions. Human Identities: Your administrators, developers, operators, and end users require an identity to access your AWS environments and applications. These are members of your organization, or external users with whom you collaborate, and who interact with your AWS resources via a web browser, client application, or interactive command-line tools. Machine Identities: Your service applications, operational tools, and workloads require an identity to make requests to AWS services - for example, to read data. These identities include machines running in your AWS environment such as Amazon EC2 instances or AWS Lambda functions. You may also manage machine identities for external parties who need access. Additionally, you may also have machines outside of AWS that need access to your AWS environment."
   children = [
@@ -71,12 +67,10 @@ benchmark "security_2" {
     aws_compliance.control.secretsmanager_secret_unused_90_day
   ]
 
-  tags = merge(local.security_common_tags, {
-    type = "Benchmark"
-  })
+  tags = local.audit_manager_security_common_tags
 }
 
-benchmark "security_3" {
+benchmark "audit_manager_security_3" {
   title       = "SEC 3: How do you manage permissions for people and machines?"
   description = "Each component or resource of your workload needs to be accessed by administrators, end users, or other components. Have a clear definition of who or what should have access to each component, choose the appropriate identity type and method of authentication and authorization."
   children = [
@@ -118,12 +112,10 @@ benchmark "security_3" {
     control.efs_access_point_enforces_user_identity
   ]
 
-  tags = merge(local.security_common_tags, {
-    type = "Benchmark"
-  })
+  tags = local.audit_manager_security_common_tags
 }
 
-benchmark "security_4" {
+benchmark "audit_manager_security_4" {
   title       = "SEC 4: How do you detect and investigate security events?"
   description = "Capture and analyze events from logs and metrics to gain visibility. Take action on security events and potential threats to help secure your workload."
   children = [
@@ -147,12 +139,10 @@ benchmark "security_4" {
     aws_compliance.control.wafv2_web_acl_logging_enabled
   ]
 
-  tags = merge(local.security_common_tags, {
-    type = "Benchmark"
-  })
+  tags = local.audit_manager_security_common_tags
 }
 
-benchmark "security_5" {
+benchmark "audit_manager_security_5" {
   title       = "SEC 5: How do you protect your network resources?"
   description = "Any workload that has some form of network connectivity, whether it’s the internet or a private network, requires multiple layers of defense to help protect from external and internal network-based threats."
   children = [
@@ -199,12 +189,10 @@ benchmark "security_5" {
     aws_compliance.control.waf_web_acl_resource_associated,
   ]
 
-  tags = merge(local.security_common_tags, {
-    type = "Benchmark"
-  })
+  tags = local.audit_manager_security_common_tags
 }
 
-benchmark "security_6" {
+benchmark "audit_manager_security_6" {
   title       = "SEC 6: How do you protect your compute resources?"
   description = "Compute resources in your workload require multiple layers of defense to help protect from external and internal threats. Compute resources include EC2 instances, containers, AWS Lambda functions, database services, IoT devices, and more."
   children = [
@@ -235,12 +223,10 @@ benchmark "security_6" {
     aws_compliance.control.vpc_security_group_associated_to_eni
   ]
 
-  tags = merge(local.security_common_tags, {
-    type = "Benchmark"
-  })
+  tags = local.audit_manager_security_common_tags
 }
 
-benchmark "security_7" {
+benchmark "audit_manager_security_7" {
   title       = "SEC 7: How do you classify your data?"
   description = "Classification provides a way to categorize data, based on criticality and sensitivity in order to help you determine appropriate protection and retention controls."
   children = [
@@ -248,12 +234,10 @@ benchmark "security_7" {
     aws_compliance.control.guardduty_finding_archived
   ]
 
-  tags = merge(local.security_common_tags, {
-    type = "Benchmark"
-  })
+  tags = local.audit_manager_security_common_tags
 }
 
-benchmark "security_8" {
+benchmark "audit_manager_security_8" {
   title       = "SEC 8: How do you protect your data at rest?"
   description = "Protect your data at rest by implementing multiple controls, to reduce the risk of unauthorized access or mishandling."
   children = [
@@ -288,12 +272,10 @@ benchmark "security_8" {
     aws_compliance.control.sns_topic_encrypted_at_rest
   ]
 
-  tags = merge(local.security_common_tags, {
-    type = "Benchmark"
-  })
+  tags = local.audit_manager_security_common_tags
 }
 
-benchmark "security_9" {
+benchmark "audit_manager_security_9" {
   title       = "SEC 9: How do you protect your data in transit?"
   description = "Protect your data in transit by implementing multiple controls to reduce the risk of unauthorized access or loss."
   children = [
@@ -313,7 +295,5 @@ benchmark "security_9" {
     aws_compliance.control.vpc_flow_logs_enabled
   ]
 
-  tags = merge(local.security_common_tags, {
-    type = "Benchmark"
-  })
+  tags = local.audit_manager_security_common_tags
 }
