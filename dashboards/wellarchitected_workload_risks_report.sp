@@ -1,16 +1,12 @@
-locals {
-  wellarchitected_common_tags = {
-    service = "AWS/WellArchitected"
-  }
-}
+// Risk types from aws_wellarchitected_workload are not returned if their count is 0, so use coalesce(..., 0)
+// But from aws_wellarchitected_lens_review, all risk types are returned even when their count is 0
+dashboard "wellarchitected_workload_risks_report" {
 
-dashboard "wellarchitected_workload_dashboard" {
-
-  title         = "AWS Well-Architected Workload Dashboard"
-  #documentation = file("./dashboards/wellarchitected/docs/wellarchitected_workload_dashboard.md")
+  title         = "AWS Well-Architected Workload Risks Report"
+  documentation = file("./dashboards/docs/wellarchitected_workload_risks_report.md")
 
   tags = merge(local.wellarchitected_common_tags, {
-    type = "Dashboard"
+    type = "Report"
   })
 
   container {
@@ -49,7 +45,7 @@ dashboard "wellarchitected_workload_dashboard" {
     table {
       width = 12
       title = "Risk Counts"
-      query = query.wellarchitected_workload_risk_counts
+      query = query.wellarchitected_workload_risk_count_table
     }
 
   }
@@ -156,7 +152,7 @@ query "wellarchitected_workload_high_medium_risk_counts" {
     select
       workload_id,
       workload_name,
-      coalesce((workload -> 'RiskCounts' ->> 'HIGH')::int, 0)as high_risks,
+      coalesce((workload -> 'RiskCounts' ->> 'HIGH')::int, 0) as high_risks,
       coalesce((workload -> 'RiskCounts' ->> 'MEDIUM')::int, 0) as medium_risks
     from
       aws_wellarchitected_workload
@@ -228,21 +224,19 @@ query "wellarchitected_workload_milestone_lens_review_risk_counts" {
   EOQ
 }
 
-query "wellarchitected_workload_risk_counts" {
+query "wellarchitected_workload_risk_count_table" {
   sql = <<-EOQ
     select
-      workload_id as "ID",
       workload_name as "Name",
-      coalesce((risk_counts ->> 'HIGH')::int, 0) as "High Risks",
-      coalesce((risk_counts ->> 'MEDIUM')::int, 0) as "Medium Risks",
+      coalesce((risk_counts ->> 'HIGH')::int, 0) as "High",
+      coalesce((risk_counts ->> 'MEDIUM')::int, 0) as "Medium",
       coalesce((risk_counts ->> 'NONE')::int, 0) as "No Improvements",
       coalesce((risk_counts ->> 'NOT_APPLICABLE')::int, 0) as "N/A",
       coalesce((risk_counts ->> 'UNANSWERED')::int, 0) as "Unanswered"
   from
     aws_wellarchitected_workload
   order by
-    "High Risks" desc,
-    "Medium Risks" desc
+    "High" desc,
+    "Medium" desc
   EOQ
 }
-
