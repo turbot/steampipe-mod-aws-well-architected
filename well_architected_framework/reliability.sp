@@ -48,7 +48,6 @@ benchmark "well_architected_framework_reliability_1_rel_manage_service_limits_aw
 
   tags = merge(local.well_architected_framework_reliability_1_common_tags, {
     choice_id = "rel_manage_service_limits_aware_quotas_and_constraints"
-    // TODO: How to determine severity?
     severity  = "high"
   })
 }
@@ -64,7 +63,6 @@ benchmark "well_architected_framework_reliability_1_rel_manage_service_limits_li
 
   tags = merge(local.well_architected_framework_reliability_1_common_tags, {
     choice_id = "rel_manage_service_limits_limits_considered"
-    // TODO: How to determine severity?
     severity  = "high"
   })
 }
@@ -93,7 +91,6 @@ benchmark "well_architected_framework_reliability_2_rel_planning_network_topolog
 
   tags = merge(local.well_architected_framework_reliability_2_common_tags, {
     choice_id = "rel_planning_network_topology_ha_conn_users"
-    // TODO: How to determine severity?
     severity  = "high"
   })
 }
@@ -108,7 +105,6 @@ benchmark "well_architected_framework_reliability_2_rel_planning_network_topolog
 
   tags = merge(local.well_architected_framework_reliability_2_common_tags, {
     choice_id = "rel_planning_network_topology_ha_conn_private_networks"
-    // TODO: How to determine severity?
     severity  = "high"
   })
 }

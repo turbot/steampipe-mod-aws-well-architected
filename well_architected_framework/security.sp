@@ -46,7 +46,6 @@ benchmark "well_architected_framework_security_sec01_bp01" {
 
   tags = merge(local.well_architected_framework_security_sec01_common_tags, {
     choice_id = "sec_securely_operate_multi_accounts"
-    // TODO: How to determine severity?
     severity = "high"
   })
 }
@@ -63,7 +62,6 @@ benchmark "well_architected_framework_security_sec01_bp02" {
 
   tags = merge(local.well_architected_framework_security_sec01_common_tags, {
     choice_id = "sec_securely_operate_multi_accounts"
-    // TODO: How to determine severity?
     severity = "high"
   })
 }
@@ -94,7 +92,6 @@ benchmark "well_architected_framework_security_sec02_bp01" {
 
   tags = merge(local.well_architected_framework_security_sec02_common_tags, {
     choice_id = "sec_identities_enforce_mechanisms"
-    // TODO: How to determine severity?
     severity = "high"
   })
 }
@@ -113,7 +110,6 @@ benchmark "well_architected_framework_security_sec02_bp02" {
 
   tags = merge(local.well_architected_framework_security_sec02_common_tags, {
     choice_id = "sec_identities_unique"
-    // TODO: How to determine severity?
     severity = "high"
   })
 }
