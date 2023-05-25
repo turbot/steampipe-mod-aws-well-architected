@@ -26,8 +26,6 @@ benchmark "well_architected_framework_reliability_rel06_bp01" {
     aws_compliance.control.codebuild_project_logging_enabled,
     aws_compliance.control.ecs_task_definition_logging_enabled,
     aws_compliance.control.elb_application_classic_lb_logging_enabled,
-    aws_compliance.control.foundational_security_es_5, # es_domain_audit_logging_enabled (This will look with number, need to make part of aws config)
-    aws_compliance.control.foundational_security_apigateway_9, # gatewayv2_stage_access_logging_enabled (This will look with number, need to make part of aws config)
     aws_compliance.control.lambda_function_cloudtrail_logging_enabled,
     aws_compliance.control.opensearch_domain_audit_logging_enabled,
     aws_compliance.control.rds_db_instance_logging_enabled,
