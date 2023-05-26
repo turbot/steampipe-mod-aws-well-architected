@@ -8,14 +8,14 @@ benchmark "well_architected_framework_rel09" {
   title       = "REL09 How do you back up data?"
   description = "Back up data, applications, and configuration to meet your requirements for recovery time objectives (RTO) and recovery point objectives (RPO)."
   children = [
-    benchmark.well_architected_framework_reliability_rel09_bp02,
-    benchmark.well_architected_framework_reliability_rel09_bp03
+    benchmark.well_architected_framework_rel09_bp02,
+    benchmark.well_architected_framework_rel09_bp03
   ]
 
   tags = local.well_architected_framework_rel09_common_tags
 }
 
-benchmark "well_architected_framework_reliability_rel09_bp02" {
+benchmark "well_architected_framework_rel09_bp02" {
   title       = "BP02 Secure and encrypt backups"
   description = "Control and detect access to backups using authentication and authorization. Prevent and detect if data integrity of backups is compromised using encryption."
   children = [
@@ -34,7 +34,7 @@ benchmark "well_architected_framework_reliability_rel09_bp02" {
   })
 }
 
-benchmark "well_architected_framework_reliability_rel09_bp03" {
+benchmark "well_architected_framework_rel09_bp03" {
   title       = "BP03 Perform data backup automatically"
   description = "Control and detect access to backups using authentication and authorization. Prevent and detect if data integrity of backups is compromised using encryption."
   children = [
