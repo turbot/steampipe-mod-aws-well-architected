@@ -1,3 +1,20 @@
+## v0.8
+
+_Breaking changes_
+
+- The standalone Well-Architected Framework Reliability and Security benchmarks have been removed, as they are now included in the Well-Architected Framework benchmark.
+
+_What's new?_
+
+- Added Well-Architected Framework benchmark (`steampipe check benchmark.well_architected_framework`). ([#22](https://github.com/turbot/steampipe-mod-aws-well-architected/pull/22))
+- New dashboards added: ([#21](https://github.com/turbot/steampipe-mod-aws-well-architected/pull/21))
+  - [AWS Well-Architected Workload Detail](https://hub.steampipe.io/mods/turbot/aws_well_architected/dashboards/dashboard.wellarchitected_workload_detail)
+  - [AWS Well-Architected Workload Risks Report](https://hub.steampipe.io/mods/turbot/aws_well_architected/dashboards/dashboard.wellarchitected_workload_risks_report)
+
+_Dependencies_
+
+- AWS Compliance mod `v0.66` or higher is now required. ([#22](https://github.com/turbot/steampipe-mod-aws-well-architected/pull/22))
+
 ## v0.7
 
 _Dependencies_
