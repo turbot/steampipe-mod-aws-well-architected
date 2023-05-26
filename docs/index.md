@@ -9,7 +9,6 @@ Run controls across all of your AWS accounts to check if they are following AWS 
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_dashboard.png" width="50%" type="thumbnail"/>
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_reliability_pillar_dashboard.png" width="50%" type="thumbnail"/>
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_security_pillar_dashboard.png" width="50%" type="thumbnail"/>
-<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_security_pillar_cli.png" width="50%" type="thumbnail"/>
 
 ## References
 
@@ -86,19 +85,25 @@ steampipe check all
 Run a single benchmark:
 
 ```sh
-steampipe check benchmark.security
+steampipe check benchmark.well_architected_framework
 ```
 
 Run a benchmark for a specific pillar:
 
 ```sh
-steampipe check benchmark.security
+steampipe check benchmark.well_architected_framework_security
 ```
 
-Run a benchmark for a specific pillar best practice:
+Run a benchmark for a specific question:
 
 ```sh
-steampipe check benchmark.security_1
+steampipe check benchmark.well_architected_framework_sec01
+```
+
+Run a benchmark for a specific best practice:
+
+```sh
+steampipe check benchmark.well_architected_framework_sec01_bp01
 ```
 
 Different output formats are also available, for more information please see
