@@ -18,7 +18,6 @@ benchmark "well_architected_framework_rel02" {
 benchmark "well_architected_framework_rel02_bp01" {
   title       = "BP01 Use highly available network connectivity for your workload public endpoints"
   description = "Building highly available network connectivity to public endpoints of your workloads can help you reduce downtime due to loss of connectivity and improve the availability and SLA of your workload. To achieve this, use highly available DNS, content delivery networks (CDNs), API gateways, load balancing, or reverse proxies."
-  // TODO: Review these controls
   children = [
     aws_compliance.control.cloudfront_distribution_configured_with_origin_failover,
     aws_compliance.control.cloudfront_distribution_waf_enabled,
@@ -40,7 +39,6 @@ benchmark "well_architected_framework_rel02_bp01" {
 benchmark "well_architected_framework_rel02_bp02" {
   title       = "BP02 Provision redundant connectivity between private networks in the cloud and on-premises environments"
   description = "Use multiple AWS Direct Connect (DX) connections or VPN tunnels between separately deployed private networks. Use multiple DX locations for high availability. If using multiple AWS Regions, ensure redundancy in at least two of them. You might want to evaluate AWS Marketplace appliances that terminate VPNs. If you use AWS Marketplace appliances, deploy redundant instances for high availability in different Availability Zones."
-  // TODO: Review these controls
   children = [
     aws_compliance.control.ec2_instance_in_vpc,
     aws_compliance.control.ecs_cluster_instance_in_vpc,

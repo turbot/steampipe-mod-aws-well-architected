@@ -57,8 +57,7 @@ benchmark "well_architected_framework_sec03_bp03" {
   description = "A process that allows emergency access to your workload in the unlikely event of an automated process or pipeline issue. This will help you rely on least privilege access, but ensure users can obtain the right level of access when they require it. For example, establish a process for administrators to verify and approve their request, such as an emergency AWS cross-account role for access, or a specific process for administrators to follow to validate and approve an emergency request."
   children = [
     aws_compliance.control.iam_group_not_empty,
-    aws_compliance.control.iam_policy_custom_no_blocked_kms_actions,
-    aws_compliance.control.foundational_security_account_1
+    aws_compliance.control.iam_policy_custom_no_blocked_kms_actions
   ]
 
   tags = merge(local.well_architected_framework_sec03_common_tags, {
@@ -136,7 +135,6 @@ benchmark "well_architected_framework_sec03_bp07" {
     aws_compliance.control.sagemaker_notebook_instance_direct_internet_access_disabled,
     aws_compliance.control.secretsmanager_secret_unused_90_day,
     aws_compliance.control.autoscaling_launch_config_public_ip_disabled,
-    // aws_compliance.control.lambda_function_cors_configuration,
     aws_compliance.control.cloudtrail_bucket_not_public,
     aws_compliance.control.ecr_repository_prohibit_public_access,
     aws_compliance.control.eks_cluster_endpoint_restrict_public_access,
@@ -144,7 +142,7 @@ benchmark "well_architected_framework_sec03_bp07" {
     aws_compliance.control.s3_public_access_block_account,
     aws_compliance.control.sns_topic_policy_prohibit_public_access,
     aws_compliance.control.sqs_queue_policy_prohibit_public_access,
-    aws_compliance.control.foundational_security_ssm_4,
+    aws_compliance.control.ssm_document_prohibit_public_access
   ]
 
   tags = merge(local.well_architected_framework_sec03_common_tags, {

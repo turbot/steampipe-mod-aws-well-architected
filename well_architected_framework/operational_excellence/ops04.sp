@@ -9,6 +9,7 @@ benchmark "well_architected_framework_ops04" {
   description = "Design your workload so that it provides the information necessary across all components(for example, metrics, logs, and traces) for you to understand its internal state. This enables you to provide effective responses when appropriate."
   children = [
     benchmark.well_architected_framework_ops04_bp01,
+    benchmark.well_architected_framework_ops04_bp02
   ]
 
   tags = local.well_architected_framework_ops04_common_tags

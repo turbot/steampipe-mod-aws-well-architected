@@ -83,7 +83,6 @@ benchmark "well_architected_framework_sec05_bp03" {
     aws_compliance.control.vpc_network_acl_unused,
     aws_compliance.control.vpc_default_security_group_restricts_all_traffic,
     aws_compliance.control.ec2_instance_no_launch_wizard_security_group,
-    aws_compliance.control.foundational_security_ec2_22,
     aws_compliance.control.route53_domain_privacy_protection_enabled,
     aws_compliance.control.route53_domain_transfer_lock_enabled
   ]

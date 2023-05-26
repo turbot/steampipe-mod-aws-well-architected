@@ -28,7 +28,6 @@ benchmark "well_architected_framework_sec06_bp01" {
     aws_compliance.control.cloudtrail_security_trail_enabled,
     aws_compliance.control.ec2_instance_uses_imdsv2,
     aws_compliance.control.ec2_instance_publicly_accessible_iam_profile_attached,
-    aws_compliance.control.foundational_security_redshift_6,
     aws_compliance.control.ssm_managed_instance_compliance_patch_compliant
   ]
 

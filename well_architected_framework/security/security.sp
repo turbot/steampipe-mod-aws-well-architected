@@ -1,11 +1,11 @@
 locals {
   well_architected_framework_security_common_tags = merge(local.well_architected_framework_common_tags, {
-    pillar = "security"
+    pillar_id = "security"
   })
 }
 
 benchmark "well_architected_framework_security" {
-  title       = "Security Pillar"
+  title       = "Security"
   description = "The security pillar focuses on protecting information and systems. Key topics include confidentiality and integrity of data, managing user permissions, and establishing controls to detect security events."
   children = [
     benchmark.well_architected_framework_sec01,

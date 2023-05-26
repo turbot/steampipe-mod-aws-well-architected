@@ -47,8 +47,6 @@ benchmark "well_architected_framework_sec08_bp02" {
     aws_compliance.control.dynamodb_table_encryption_enabled,
     aws_compliance.control.ec2_ebs_default_encryption_enabled,
     aws_compliance.control.eks_cluster_secrets_encrypted,
-    // aws_compliance.control.glue_data_catalog_encryption_settings_password_encryption_enabled,
-    // aws_compliance.control.glue_data_catalog_encryption_settings_metadata_encryption_enabled,
     aws_compliance.control.glue_dev_endpoint_cloudwatch_logs_encryption_enabled,
     aws_compliance.control.glue_dev_endpoint_job_bookmarks_encryption_enabled,
     aws_compliance.control.glue_dev_endpoint_s3_encryption_enabled,
@@ -57,8 +55,7 @@ benchmark "well_architected_framework_sec08_bp02" {
     aws_compliance.control.glue_job_cloudwatch_logs_encryption_enabled,
     aws_compliance.control.sagemaker_notebook_instance_encrypted_with_kms_cmk,
     aws_compliance.control.sagemaker_training_job_inter_container_traffic_encryption_enabled,
-    aws_compliance.control.sagemaker_training_job_volume_and_data_encryption_enabled,
-    aws_compliance.control.foundational_security_sqs_1
+    aws_compliance.control.sagemaker_training_job_volume_and_data_encryption_enabled
   ]
 
   tags = merge(local.well_architected_framework_sec08_common_tags, {

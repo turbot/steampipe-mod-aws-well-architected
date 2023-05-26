@@ -17,7 +17,6 @@ benchmark "well_architected_framework_rel08" {
 benchmark "well_architected_framework_rel08_bp05" {
   title       = "BP05 Deploy changes with automation"
   description = "Deployments and patching are automated to eliminate negative impact. Making changes to production systems is one of the largest risk areas for many organizations. We consider deployments a first-class problem to be solved alongside the business problems that the software addresses. Today, this means the use of automation wherever practical in operations, including testing and deploying changes, adding or removing capacity, and migrating data. AWS CodePipeline lets you manage the steps required to release your workload. This includes a deployment state using AWS CodeDeploy to automate deployment of application code to Amazon EC2 instances, on-premises instances, serverless Lambda functions, or Amazon ECS services."
-  // TODO: Review these controls
   children = [
     aws_compliance.control.rds_db_instance_automatic_minor_version_upgrade_enabled
   ]
