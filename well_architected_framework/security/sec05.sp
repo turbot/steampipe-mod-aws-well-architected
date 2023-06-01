@@ -76,7 +76,7 @@ benchmark "well_architected_framework_sec05_bp03" {
     aws_compliance.control.vpc_security_group_restrict_ingress_tcp_udp_all,
     aws_compliance.control.vpc_security_group_restrict_ingress_common_ports_all,
     aws_compliance.control.vpc_security_group_restrict_ingress_kafka_port,
-    aws_compliance.control.vpc_security_group_restricted_common_ports,
+    aws_compliance.control.vpc_security_group_restrict_common_ports,
     aws_compliance.control.vpc_security_group_restrict_ingress_redis_port,
     aws_compliance.control.waf_web_acl_rule_attached,
     aws_compliance.control.waf_rule_group_rule_attached,
