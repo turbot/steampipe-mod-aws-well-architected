@@ -1,7 +1,6 @@
 // Benchmarks and controls for specific services should override the "service" tag
 locals {
   aws_well_architected_common_tags = {
-    category = "Compliance"
     plugin   = "aws"
     service  = "AWS"
   }
@@ -86,6 +85,9 @@ mod "aws_well_architected" {
         common_dimensions = var.common_dimensions,
         tag_dimensions    = var.tag_dimensions
       }
+    }
+    mod "github.com/turbot/steampipe-mod-aws-thrifty" {
+      version = "^0.21.0"
     }
   }
 }
