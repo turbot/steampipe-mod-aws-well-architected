@@ -13,7 +13,7 @@ benchmark "well_architected_framework" {
     benchmark.well_architected_framework_operational_excellence,
     benchmark.well_architected_framework_reliability,
     benchmark.well_architected_framework_security,
-    benchmark.well_architected_framework_sustainability,
+    benchmark.well_architected_framework_sustainability
   ]
 
   tags = local.well_architected_framework_common_tags
