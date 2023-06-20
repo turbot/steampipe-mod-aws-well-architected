@@ -129,3 +129,7 @@ Want to help but not sure where to start? Pick up one of the `help wanted` issue
 
 - [Steampipe](https://github.com/turbot/steampipe/labels/help%20wanted)
 - [AWS Well-Architected Mod](https://github.com/turbot/steampipe-mod-aws-well-architected/labels/help%20wanted)
+
+## Credits
+
+- Thanks to [@JPPienaar](https://github.com/JPPienaar) and [@nathanwebsterdotme](https://github.com/nathanwebsterdotme) from [Daemon](https://github.com/Daemon-Solutions) for developing some of the control mappings used in the Well-Architected Framework benchmarks.
