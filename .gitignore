@@ -12,7 +12,7 @@
 *.spvars
 *.auto.spvars
 
-# Steampipe mod depdencies
+# Steampipe mod dependencies
 .steampipe
 
 # Cache json files
