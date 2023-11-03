@@ -1,3 +1,9 @@
+## v0.9 [2023-11-03]
+
+_Breaking changes_
+
+- Updated the plugin dependency section of the mod to use `min_version` instead of `version`. ([#34](https://github.com/turbot/steampipe-mod-aws-well-architected/pull/34))
+
 ## v0.8
 
 _Breaking changes_
