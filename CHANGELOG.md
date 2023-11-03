@@ -4,6 +4,10 @@ _Breaking changes_
 
 - Updated the plugin dependency section of the mod to use `min_version` instead of `version`. ([#34](https://github.com/turbot/steampipe-mod-aws-well-architected/pull/34))
 
+_Bug fixes_
+
+- Fixed the README and index docs to correctly reference the `well_architected_framework_security` benchmark. ([#36](https://github.com/turbot/steampipe-mod-aws-well-architected/pull/36))
+
 ## v0.8
 
 _Breaking changes_
