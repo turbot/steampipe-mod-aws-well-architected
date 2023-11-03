@@ -78,7 +78,7 @@ mod "aws_well_architected" {
 
   require {
     plugin "aws" {
-      version = "0.101.0"
+      min_version = "0.101.0"
     }
     mod "github.com/turbot/steampipe-mod-aws-compliance" {
       version = ">=0.66.0"
