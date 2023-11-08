@@ -6,7 +6,7 @@ _Breaking changes_
 
 _Bug fixes_
 
-- Fixed the README and index docs to correctly reference the `well_architected_framework_security` benchmark. ([#36](https://github.com/turbot/steampipe-mod-aws-well-architected/pull/36))
+- Fixed the README and index docs to correctly reference the `well_architected_framework_security` benchmark. ([#25](https://github.com/turbot/steampipe-mod-aws-well-architected/pull/25))
 
 ## v0.8
 
