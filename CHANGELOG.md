@@ -8,7 +8,7 @@ _Bug fixes_
 
 - Fixed the README and index docs to correctly reference the `well_architected_framework_security` benchmark. ([#25](https://github.com/turbot/steampipe-mod-aws-well-architected/pull/25))
 
-## v0.8
+## v0.8 [2023-05-26]
 
 _Breaking changes_
 
@@ -25,7 +25,7 @@ _Dependencies_
 
 - AWS Compliance mod `v0.66` or higher is now required. ([#22](https://github.com/turbot/steampipe-mod-aws-well-architected/pull/22))
 
-## v0.7
+## v0.7 [2023-05-22]
 
 _Dependencies_
 
@@ -36,7 +36,7 @@ _Bug fixes_
 - Fixed semver constraint for AWS Compliance mod to require a minimum minor version instead of an exact minor version.
 - Removed unused ECS queries that are now in AWS Compliance mod controls. ([#18](https://github.com/turbot/steampipe-mod-aws-well-architected/pull/18))
 
-## v0.6
+## v0.6 [2023-05-03]
 
 _Bug fixes_
 
