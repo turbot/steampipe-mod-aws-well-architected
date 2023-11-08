@@ -1,6 +1,6 @@
 # AWS Well-Architected Mod for Steampipe
 
-300+ checks covering AWS Well-Architected Framework defined best practices across all AWS regions.
+200+ checks covering AWS Well-Architected Framework defined best practices across all AWS regions.
 
 Run checks in a dashboard:
 ![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_security_dashboard.png)
@@ -110,11 +110,11 @@ The benchmark queries use common properties (like `account_id`, `connection_name
 - Pass in a value on the command line:
 
   ```shell
-  steampipe check benchmark.security --var 'common_dimensions=["account_id", "connection_name", "region"]'
+  steampipe check benchmark.well_architected_framework_security --var 'common_dimensions=["account_id", "connection_name", "region"]'
   ```
 
   ```shell
-  steampipe check benchmark.security --var 'tag_dimensions=["Environment", "Owner"]'
+  steampipe check benchmark.well_architected_framework_security --var 'tag_dimensions=["Environment", "Owner"]'
   ```
 
 ## Contributing
