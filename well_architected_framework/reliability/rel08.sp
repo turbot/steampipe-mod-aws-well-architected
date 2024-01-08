@@ -23,6 +23,6 @@ benchmark "well_architected_framework_rel08_bp05" {
 
   tags = merge(local.well_architected_framework_rel08_common_tags, {
     choice_id = "rel_tracking_change_management_automated_changemgmt"
-    severity  = "high"
+    risk  = "high"
   })
 }

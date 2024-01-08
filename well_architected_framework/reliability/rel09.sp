@@ -30,7 +30,7 @@ benchmark "well_architected_framework_rel09_bp02" {
 
   tags = merge(local.well_architected_framework_rel09_common_tags, {
     choice_id = "rel_backing_up_data_secured_backups_data"
-    severity  = "high"
+    risk  = "high"
   })
 }
 
@@ -53,6 +53,6 @@ benchmark "well_architected_framework_rel09_bp03" {
 
   tags = merge(local.well_architected_framework_rel09_common_tags, {
     choice_id = "rel_backing_up_data_automated_backups_data"
-    severity  = "high"
+    risk  = "high"
   })
 }

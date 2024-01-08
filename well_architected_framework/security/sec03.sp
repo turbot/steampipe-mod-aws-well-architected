@@ -33,7 +33,7 @@ benchmark "well_architected_framework_sec03_bp01" {
 
   tags = merge(local.well_architected_framework_sec03_common_tags, {
     choice_id = "sec_permissions_define"
-    severity  = "high"
+    risk  = "high"
   })
 }
 
@@ -48,7 +48,7 @@ benchmark "well_architected_framework_sec03_bp02" {
 
   tags = merge(local.well_architected_framework_sec03_common_tags, {
     choice_id = "sec_permissions_least_privileges"
-    severity  = "high"
+    risk  = "high"
   })
 }
 
@@ -62,7 +62,7 @@ benchmark "well_architected_framework_sec03_bp03" {
 
   tags = merge(local.well_architected_framework_sec03_common_tags, {
     choice_id = "sec_permissions_emergency_process"
-    severity  = "high"
+    risk  = "high"
   })
 }
 
@@ -75,7 +75,7 @@ benchmark "well_architected_framework_sec03_bp04" {
 
   tags = merge(local.well_architected_framework_sec03_common_tags, {
     choice_id = "sec_permissions_continuous_reduction"
-    severity  = "medium"
+    risk  = "medium"
   })
 }
 
@@ -89,7 +89,7 @@ benchmark "well_architected_framework_sec03_bp05" {
 
   tags = merge(local.well_architected_framework_sec03_common_tags, {
     choice_id = "sec_permissions_define_guardrails"
-    severity  = "medium"
+    risk  = "medium"
   })
 }
 
@@ -108,7 +108,7 @@ benchmark "well_architected_framework_sec03_bp06" {
 
   tags = merge(local.well_architected_framework_sec03_common_tags, {
     choice_id = "sec_permissions_lifecycle"
-    severity  = "low"
+    risk  = "low"
   })
 }
 
@@ -147,7 +147,7 @@ benchmark "well_architected_framework_sec03_bp07" {
 
   tags = merge(local.well_architected_framework_sec03_common_tags, {
     choice_id = "sec_permissions_analyze_cross_account"
-    severity  = "low"
+    risk  = "low"
   })
 }
 
@@ -167,6 +167,6 @@ benchmark "well_architected_framework_sec03_bp08" {
 
   tags = merge(local.well_architected_framework_sec03_common_tags, {
     choice_id = "sec_permissions_share_securely"
-    severity  = "low"
+    risk  = "low"
   })
 }

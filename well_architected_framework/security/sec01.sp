@@ -26,7 +26,7 @@ benchmark "well_architected_framework_sec01_bp01" {
 
   tags = merge(local.well_architected_framework_sec01_common_tags, {
     choice_id = "sec_securely_operate_multi_accounts"
-    severity  = "high"
+    risk  = "high"
   })
 }
 
@@ -42,7 +42,7 @@ benchmark "well_architected_framework_sec01_bp02" {
 
   tags = merge(local.well_architected_framework_sec01_common_tags, {
     choice_id = "sec_securely_operate_multi_accounts"
-    severity  = "high"
+    risk  = "high"
   })
 }
 
@@ -56,7 +56,7 @@ benchmark "well_architected_framework_sec01_bp06" {
 
   tags = merge(local.well_architected_framework_sec01_common_tags, {
     choice_id = "sec_securely_operate_test_validate_pipeline"
-    severity  = "medium"
+    risk  = "medium"
   })
 }
 
@@ -69,6 +69,6 @@ benchmark "well_architected_framework_sec01_bp08" {
 
   tags = merge(local.well_architected_framework_sec01_common_tags, {
     choice_id = "sec_securely_operate_implement_services_features"
-    severity  = "low"
+    risk  = "low"
   })
 }

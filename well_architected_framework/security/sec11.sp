@@ -23,6 +23,6 @@ benchmark "well_architected_framework_sec11_bp02" {
 
   tags = merge(local.well_architected_framework_sec11_common_tags, {
     choice_id = "sec_appsec_automate_testing_throughout_lifecycle"
-    severity  = "medium"
+    risk  = "medium"
   })
 }
