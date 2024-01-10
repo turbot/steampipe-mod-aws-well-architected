@@ -25,6 +25,6 @@ benchmark "well_architected_framework_rel07_bp01" {
 
   tags = merge(local.well_architected_framework_rel07_common_tags, {
     choice_id = "rel_adapt_to_changes_autoscale_adapt"
-    risk  = "high"
+    risk      = "high"
   })
 }

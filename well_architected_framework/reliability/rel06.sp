@@ -36,7 +36,7 @@ benchmark "well_architected_framework_rel06_bp01" {
 
   tags = merge(local.well_architected_framework_rel06_common_tags, {
     choice_id = "rel_monitor_aws_resources_monitor_resources"
-    risk  = "high"
+    risk      = "high"
   })
 }
 
@@ -50,6 +50,6 @@ benchmark "well_architected_framework_rel06_bp02" {
 
   tags = merge(local.well_architected_framework_rel06_common_tags, {
     choice_id = "rel_planning_network_topology_ha_conn_users"
-    risk  = "high"
+    risk      = "high"
   })
 }

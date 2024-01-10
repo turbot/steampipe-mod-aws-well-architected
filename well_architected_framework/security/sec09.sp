@@ -28,7 +28,7 @@ benchmark "well_architected_framework_sec09_bp01" {
 
   tags = merge(local.well_architected_framework_sec09_common_tags, {
     choice_id = "sec_protect_data_transit_key_cert_mgmt"
-    risk  = "high"
+    risk      = "high"
   })
 }
 
@@ -50,7 +50,7 @@ benchmark "well_architected_framework_sec09_bp02" {
 
   tags = merge(local.well_architected_framework_sec09_common_tags, {
     choice_id = "sec_protect_data_transit_encrypt"
-    risk  = "high"
+    risk      = "high"
   })
 }
 
@@ -63,7 +63,7 @@ benchmark "well_architected_framework_sec09_bp03" {
 
   tags = merge(local.well_architected_framework_sec09_common_tags, {
     choice_id = "sec_protect_data_transit_auto_unintended_access"
-    risk  = "medium"
+    risk      = "medium"
   })
 }
 
@@ -77,6 +77,6 @@ benchmark "well_architected_framework_sec09_bp04" {
 
   tags = merge(local.well_architected_framework_sec09_common_tags, {
     choice_id = "sec_protect_data_transit_authentication"
-    risk  = "low"
+    risk      = "low"
   })
 }

@@ -25,7 +25,7 @@ benchmark "well_architected_framework_ops05_bp03" {
 
   tags = merge(local.well_architected_framework_ops05_common_tags, {
     choice_id = "ops_dev_integ_conf_mgmt_sys"
-    risk  = "medium"
+    risk      = "medium"
   })
 }
 
@@ -39,6 +39,6 @@ benchmark "well_architected_framework_ops05_bp05" {
 
   tags = merge(local.well_architected_framework_ops05_common_tags, {
     choice_id = "ops_dev_integ_patch_mgmt"
-    risk  = "medium"
+    risk      = "medium"
   })
 }

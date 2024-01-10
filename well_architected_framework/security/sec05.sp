@@ -39,7 +39,7 @@ benchmark "well_architected_framework_sec05_bp01" {
 
   tags = merge(local.well_architected_framework_sec05_common_tags, {
     choice_id = "sec_network_protection_create_layers"
-    risk  = "high"
+    risk      = "high"
   })
 }
 
@@ -60,7 +60,7 @@ benchmark "well_architected_framework_sec05_bp02" {
 
   tags = merge(local.well_architected_framework_sec05_common_tags, {
     choice_id = "sec_network_protection_layered"
-    risk  = "high"
+    risk      = "high"
   })
 }
 
@@ -89,7 +89,7 @@ benchmark "well_architected_framework_sec05_bp03" {
 
   tags = merge(local.well_architected_framework_sec05_common_tags, {
     choice_id = "sec_network_protection_auto_protect"
-    risk  = "medium"
+    risk      = "medium"
   })
 }
 
@@ -104,6 +104,6 @@ benchmark "well_architected_framework_sec05_bp04" {
 
   tags = merge(local.well_architected_framework_sec05_common_tags, {
     choice_id = "sec_network_protection_inspection"
-    risk  = "low"
+    risk      = "low"
   })
 }

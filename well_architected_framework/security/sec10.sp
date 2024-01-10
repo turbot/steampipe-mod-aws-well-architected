@@ -23,6 +23,6 @@ benchmark "well_architected_framework_sec10_bp01" {
 
   tags = merge(local.well_architected_framework_sec10_common_tags, {
     choice_id = "sec_incident_response_identify_personnel"
-    risk  = "high"
+    risk      = "high"
   })
 }
