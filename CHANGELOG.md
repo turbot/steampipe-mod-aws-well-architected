@@ -1,3 +1,9 @@
+## v0.10 [2024-01-12]
+
+_Bug fixes_
+
+- Updated the tags to use `risk` instead of `severity` to eliminate duplicate column names in output files. ([#41](https://github.com/turbot/steampipe-mod-aws-well-architected/pull/41))
+  
 ## v0.9 [2023-11-03]
 
 _Breaking changes_
