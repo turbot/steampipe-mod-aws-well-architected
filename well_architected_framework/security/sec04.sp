@@ -40,7 +40,7 @@ benchmark "well_architected_framework_sec04_bp01" {
 
   tags = merge(local.well_architected_framework_sec04_common_tags, {
     choice_id = "sec_detect_investigate_events_app_service_logging"
-    severity  = "high"
+    risk      = "high"
   })
 }
 
@@ -60,7 +60,7 @@ benchmark "well_architected_framework_sec04_bp02" {
 
   tags = merge(local.well_architected_framework_sec04_common_tags, {
     choice_id = "sec_detect_investigate_events_analyze_all"
-    severity  = "high"
+    risk      = "high"
   })
 }
 
@@ -80,6 +80,6 @@ benchmark "well_architected_framework_sec04_bp03" {
 
   tags = merge(local.well_architected_framework_sec04_common_tags, {
     choice_id = "sec_detect_investigate_events_auto_response"
-    severity  = "medium"
+    risk      = "medium"
   })
 }

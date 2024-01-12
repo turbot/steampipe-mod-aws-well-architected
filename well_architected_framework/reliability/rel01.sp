@@ -24,6 +24,6 @@ benchmark "well_architected_framework_rel01_bp03" {
 
   tags = merge(local.well_architected_framework_rel01_common_tags, {
     choice_id = "rel_manage_service_limits_aware_fixed_limits"
-    severity  = "medium"
+    risk      = "medium"
   })
 }
