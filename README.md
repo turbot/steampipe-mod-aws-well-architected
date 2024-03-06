@@ -1,4 +1,4 @@
-# AWS Well-Architected Mod for Steampipe
+# AWS Well-Architected Mod for Powerpipe
 
 200+ checks covering AWS Well-Architected Framework defined best practices across all AWS regions.
 
@@ -7,11 +7,6 @@ Run checks in a dashboard:
 
 Or in a terminal:
 ![image](https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_console.png)
-
-## Documentation
-
-- **[Benchmarks and controls →](https://hub.powerpipe.io/mods/turbot/aws_well_architected/controls)**
-- **[Named queries →](https://hub.powerpipe.io/mods/turbot/aws_well_architected/queries)**
 
 ## Getting Started
 
@@ -55,7 +50,7 @@ Start the dashboard server:
 powerpipe server
 ```
 
-Browse and view your dashboards at **https://localhost:9033**.
+Browse and view your dashboards at **http://localhost:9033**.
 
 ### Running Checks in Your Terminal
 
@@ -99,26 +94,26 @@ Different output formats are also available, for more information please see
 
 The benchmark queries use common properties (like `account_id`, `connection_name` and `region`) and tags that are defined in the dependent [AWS Compliance mod](https://github.com/turbot/steampipe-mod-aws-compliance) These properties can be executed in the following ways:
 
-- Copy and rename the `powerpipe.ppvars.example` file to `powerpipe.ppvars`, and then modify the variable values inside that file
-- Pass in a value on the command line:
+It's easiest to setup your vars file, starting with the sample:
 
-  ```sh
-  powerpipe benchmark run well_architected_framework_security --var 'common_dimensions=["account_id", "connection_name", "region"]'
-  ```
+```sh
+cp steampipe.spvars.example steampipe.spvars
+vi steampipe.spvars
+```
 
-  ```sh
-  powerpipe benchmark run well_architected_framework_security --var 'tag_dimensions=["Environment", "Owner"]'
-  ```
+Alternatively you can pass variables on the command line:
 
-- Set an environment variable:
+```sh
+powerpipe benchmark run well_architected_framework_security --var 'common_dimensions=["account_id", "connection_name", "region"]'
+```
 
-  ```sh
-  PP_VAR_common_dimensions='["account_id", "connection_name", "region"]' powerpipe benchmark run well_architected_framework_security
-  ```
+Or through environment variables:
 
-  ```sh
-  PP_VAR_tag_dimensions='["Environment", "Owner"]' powerpipe benchmark run well_architected_framework_security
-  ```
+```sh
+export PP_VAR_common_dimensions='["account_id", "connection_name", "region"]'
+export PP_VAR_tag_dimensions='["Environment", "Owner"]'
+powerpipe benchmark run well_architected_framework_security
+```
 
 ## Open Source & Contributing
 
@@ -134,7 +129,6 @@ Want to help but don't know where to start? Pick up one of the `help wanted` iss
 
 - [Powerpipe](https://github.com/turbot/powerpipe/labels/help%20wanted)
 - [AWS Well-Architected Mod](https://github.com/turbot/steampipe-mod-aws-well-architected/labels/help%20wanted)
-
 
 ## Credits
 

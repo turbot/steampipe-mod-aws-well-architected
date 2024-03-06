@@ -4,7 +4,7 @@ Run controls across all of your AWS accounts to check if they are following AWS 
 
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_console.png" width="50%" type="thumbnail"/>
 <img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_workload_risks_report.png" width="50%" type="thumbnail"/>
-<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_security_dashboard.png" width="50%" type="thumbnail"/>
+<img src="https://raw.githubusercontent.com/turbot/steampipe-mod-aws-well-architected/main/docs/aws_well_architected_reliability_dashboard.png" width="50%" type="thumbnail"/>
 
 ## Documentation
 
@@ -53,7 +53,7 @@ Start the dashboard server:
 powerpipe server
 ```
 
-Browse and view your dashboards at **https://localhost:9033**.
+Browse and view your dashboards at **http://localhost:9033**.
 
 ### Running Checks in Your Terminal
 
@@ -97,26 +97,26 @@ Different output formats are also available, for more information please see
 
 The benchmark queries use common properties (like `account_id`, `connection_name` and `region`) and tags that are defined in the dependent [AWS Compliance mod](https://github.com/turbot/steampipe-mod-aws-compliance) These properties can be executed in the following ways:
 
-- Copy and rename the `powerpipe.ppvars.example` file to `powerpipe.ppvars`, and then modify the variable values inside that file
-- Pass in a value on the command line:
+It's easiest to setup your vars file, starting with the sample:
 
-  ```sh
-  powerpipe benchmark run well_architected_framework_security --var 'common_dimensions=["account_id", "connection_name", "region"]'
-  ```
+```sh
+cp steampipe.spvars.example steampipe.spvars
+vi steampipe.spvars
+```
 
-  ```sh
-  powerpipe benchmark run well_architected_framework_security --var 'tag_dimensions=["Environment", "Owner"]'
-  ```
+Alternatively you can pass variables on the command line:
 
-- Set an environment variable:
+```sh
+powerpipe benchmark run well_architected_framework_security --var 'common_dimensions=["account_id", "connection_name", "region"]'
+```
 
-  ```sh
-  PP_VAR_common_dimensions='["account_id", "connection_name", "region"]' powerpipe benchmark run well_architected_framework_security
-  ```
+Or through environment variables:
 
-  ```sh
-  PP_VAR_tag_dimensions='["Environment", "Owner"]' powerpipe benchmark run well_architected_framework_security
-  ```
+```sh
+export PP_VAR_common_dimensions='["account_id", "connection_name", "region"]'
+export PP_VAR_tag_dimensions='["Environment", "Owner"]'
+powerpipe benchmark run well_architected_framework_security
+```
 
 ## Open Source & Contributing
 
