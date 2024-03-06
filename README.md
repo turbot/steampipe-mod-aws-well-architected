@@ -1,5 +1,10 @@
 # AWS Well-Architected Mod for Powerpipe
 
+> [!IMPORTANT]  
+> [Powerpipe](https://powerpipe.io) is now the preferred way to run this mod! [Migrating from Steampipe →](https://powerpipe.io/blog/migrating-from-steampipe)
+>
+> All v0.x versions of this mod will work in both Steampipe and Powerpipe, but v1.0.0 onwards will be in Powerpipe format only.
+
 200+ checks covering AWS Well-Architected Framework defined best practices across all AWS regions.
 
 Run checks in a dashboard:
