@@ -12,8 +12,13 @@
 *.spvars
 *.auto.spvars
 
+# Powerpipe variable files
+*.ppvars
+*.auto.ppvars
+
 # Steampipe mod dependencies
 .steampipe
+.powerpipe
 
 # Cache json files
 *.cache.json
