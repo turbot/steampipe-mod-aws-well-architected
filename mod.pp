@@ -18,7 +18,7 @@ mod "aws_well_architected" {
       min_version = "0.101.0"
     }
     mod "github.com/turbot/steampipe-mod-aws-compliance" {
-      version = ">=0.66.0"
+      version = ">=1.9.1"
       args = {
         common_dimensions = var.common_dimensions,
         tag_dimensions    = var.tag_dimensions
