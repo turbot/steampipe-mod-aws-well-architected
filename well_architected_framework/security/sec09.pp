@@ -36,7 +36,7 @@ benchmark "well_architected_framework_sec09_bp02" {
   title       = "BP02 Enforce encryption in transit"
   description = "Enforce your defined encryption requirements based on your organization's policies, regulatory obligations and standards to help meet organizational, legal, and compliance requirements. Only use protocols with encryption when transmitting sensitive data outside of your virtual private cloud (VPC). Encryption helps maintain data confidentiality even when the data transits untrusted networks. All data should be encrypted in transit using secure TLS protocols and cipher suites. Network traffic between your resources and the internet must be encrypted to mitigate unauthorized access to the data. Network traffic solely within your internal AWS environment should be encrypted using TLS wherever possible."
   children = [
-    aws_compliance.control.elb_application_lb_drop_http_headers,
+    aws_compliance.control.elb_application_lb_http_drop_invalid_header_enabled,
     aws_compliance.control.elb_application_lb_redirect_http_request_to_https,
     aws_compliance.control.es_domain_node_to_node_encryption_enabled,
     aws_compliance.control.apigateway_rest_api_stage_use_ssl_certificate,
